@@ -6,16 +6,21 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -33,26 +38,33 @@ public class Consult {
 	
 	@Column(name = "date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "Fecha de consulta es obligatorio.")
 	private LocalDate date;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_consult_details")
+	@OneToMany(mappedBy = "consult", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ConsultDetail> consultDetails;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_id_doctor", nullable = false, foreignKey = @ForeignKey(name = "fk_doctor_consult"))
+	private Doctor doctor;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_id_patient", nullable = false, foreignKey = @ForeignKey(name = "fk_patient_consult"))
+	private Patient patient;
 
 	public Consult() {
 		super();
 	}
 
 	public Consult(Integer id,
-			@Size(min = 3, max = 50, message = "El nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
-			@NotNull(message = "Fecha de consulta es obligatorio.") LocalDate date,
-			List<ConsultDetail> consultDetails) {
+			@Size(min = 3, max = 50, message = "Nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
+			LocalDate date, List<ConsultDetail> consultDetails, Doctor doctor, Patient patient) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.consultDetails = consultDetails;
+		this.doctor = doctor;
+		this.patient = patient;
 	}
 
 	public Integer getId() {
@@ -85,5 +97,23 @@ public class Consult {
 
 	public void setConsultDetails(List<ConsultDetail> consultDetails) {
 		this.consultDetails = consultDetails;
+	}
+
+	@JsonIgnore
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	@JsonIgnore
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 }

@@ -33,6 +33,9 @@ public class DoctorDto {
 	
 	private Address address;
 	
+	@NotNull(message = "Estado doctor obligatorio.")
+	private Boolean state;
+	
 	private List<Specialty> specialties;
 	
 	private List<Consult> consults;
@@ -44,14 +47,16 @@ public class DoctorDto {
 	public DoctorDto(Integer id,
 			@NotNull(message = "Nombre médico es obligatorio.") @Size(min = 3, max = 50, message = "El nombre del médico no puede tener menos de 3 carácteres y más de 50.") String name,
 			@NotNull(message = "Apellido médico es obligatorio.") @Size(min = 3, max = 50, message = "El apellido del médico no puede tener menos de 3 carácteres y más de 50.") String lastName,
-			@Past @NotNull(message = "Fecha de nacimiento es obligatorio.") LocalDate dateBirth, Address address, List<Consult> consults,
-			List<Specialty> specialties) {
+			@Past @NotNull(message = "Fecha de nacimiento es obligatorio.") LocalDate dateBirth, Address address,
+			@NotNull(message = "Estado doctor obligatorio.") Boolean state, List<Specialty> specialties,
+			List<Consult> consults) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 		this.dateBirth = dateBirth;
 		this.address = address;
+		this.state = state;
 		this.specialties = specialties;
 		this.consults = consults;
 	}
@@ -110,5 +115,13 @@ public class DoctorDto {
 
 	public void setConsults(List<Consult> consults) {
 		this.consults = consults;
+	}
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
 	}
 }

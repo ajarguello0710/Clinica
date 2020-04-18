@@ -35,6 +35,9 @@ public class PatientDto {
 	@NotNull(message = "El Email es obligatorio.")
 	private String mail;
 	
+	@NotNull(message = "Estado paciente obligatorio.")
+	private Boolean state;
+	
 	private List<Consult> consults;
 	
 	public PatientDto() {
@@ -45,7 +48,8 @@ public class PatientDto {
 			@Size(min = 4, max = 50, message = "El nombre del paciente no puede tener menos de 4 carácteres y más de 50.") @NotNull(message = "El nombre del paciente es obligatorio.") String name,
 			@Size(min = 4, max = 50, message = "El apellido del paciente no puede tener menos de 4 carácteres y más de 50.") String lastName,
 			Address address, @Past @NotNull(message = "Fecha de nacimiento es obligatorio.") LocalDate dateBirth,
-			@Email @NotNull(message = "El Email es obligatorio.") String mail, List<Consult> consults) {
+			@Email @NotNull(message = "El Email es obligatorio.") String mail,
+			@NotNull(message = "Estado paciente obligatorio.") Boolean state, List<Consult> consults) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,9 +57,9 @@ public class PatientDto {
 		this.address = address;
 		this.dateBirth = dateBirth;
 		this.mail = mail;
+		this.state = state;
 		this.consults = consults;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -112,5 +116,12 @@ public class PatientDto {
 	public void setConsults(List<Consult> consults) {
 		this.consults = consults;
 	}
-}
 
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+}

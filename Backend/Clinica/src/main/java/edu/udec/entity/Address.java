@@ -27,7 +27,7 @@ public class Address {
 	@NotNull(message = "Barrio es obligatorio.")
 	@Size(min = 3, max = 50, message = "Barrio no puede tener menos de 3 carácteres y más de 50.")
 	private String neighborhood;
-
+	
 	public Address() {
 		super();
 	}

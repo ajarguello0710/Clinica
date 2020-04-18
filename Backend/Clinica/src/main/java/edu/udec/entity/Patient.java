@@ -29,8 +29,8 @@ public class Patient {
 	@Size(min = 4, max= 50, message = "El apellido del paciente no puede tener menos de 4 carácteres y más de 50.")
 	private String lastName;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_address")
+	@OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_id_address", referencedColumnName = "id", nullable = false)
 	private Address address;
 	
 	@Past
@@ -40,12 +40,15 @@ public class Patient {
 	private LocalDate dateBirth;
 	
 	@Email
-	@Column(name = "mail", nullable = false)
+	@Column(name = "mail", nullable = true)
 	@NotNull(message = "El Email es obligatorio.")
 	private String mail;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_consult")
+	@Column(name = "state", nullable = false)
+	@NotNull(message = "Estado paciente obligatorio.")
+	private Boolean state;
+	
+	@OneToMany(mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Consult> consults;
 	
 	public Patient() {
@@ -53,10 +56,11 @@ public class Patient {
 	}
 
 	public Patient(Integer id,
-			@Size(min = 4, max = 50, message = "El nombre del paciente no puede tener menos de 4 carácteres y más de 50.") @NotNull(message = "El nombre del paciente es obligatorio.") String name,
+			@Size(min = 3, max = 50, message = "El nombre del paciente no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre del paciente es obligatorio.") String name,
 			@Size(min = 4, max = 50, message = "El apellido del paciente no puede tener menos de 4 carácteres y más de 50.") String lastName,
 			Address address, @Past @NotNull(message = "Fecha de nacimiento es obligatorio.") LocalDate dateBirth,
-			@Email @NotNull(message = "El Email es obligatorio.") String mail, List<Consult> consults) {
+			@Email @NotNull(message = "El Email es obligatorio.") String mail,
+			@NotNull(message = "Estado paciente obligatorio.") Boolean state, List<Consult> consults) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,6 +68,7 @@ public class Patient {
 		this.address = address;
 		this.dateBirth = dateBirth;
 		this.mail = mail;
+		this.state = state;
 		this.consults = consults;
 	}
 
@@ -121,5 +126,13 @@ public class Patient {
 
 	public void setConsults(List<Consult> consults) {
 		this.consults = consults;
+	}
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
 	}
 }

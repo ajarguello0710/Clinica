@@ -31,12 +31,12 @@ public class Doctor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	@NotNull(message = "Nombre médico es obligatorio.")
 	@Size(min = 3, max = 50, message = "Nombre del médico no puede tener menos de 3 carácteres y más de 50.")
 	private String name;
 	
-	@Column(name = "last_name")
+	@Column(name = "last_name", nullable = false)
 	@NotNull(message = "Apellido médico es obligatorio.")
 	@Size(min = 3, max = 50, message = "Apellido del médico no puede tener menos de 3 carácteres y más de 50.")
 	private String lastName;
@@ -47,12 +47,15 @@ public class Doctor {
 	@NotNull(message = "Fecha de nacimiento es obligatorio.")
 	private LocalDate dateBirth;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_address")
+	@OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_id_address", referencedColumnName = "id", nullable = false)
 	private Address address;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_consult")
+	@Column(name = "state", nullable = false)
+	@NotNull(message = "Estado doctor obligatorio.")
+	private Boolean state;
+	
+	@OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Consult> consults;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -69,13 +72,15 @@ public class Doctor {
 			@NotNull(message = "Nombre médico es obligatorio.") @Size(min = 3, max = 50, message = "Nombre del médico no puede tener menos de 3 carácteres y más de 50.") String name,
 			@NotNull(message = "Apellido médico es obligatorio.") @Size(min = 3, max = 50, message = "Apellido del médico no puede tener menos de 3 carácteres y más de 50.") String lastName,
 			@Past @NotNull(message = "Fecha de nacimiento es obligatorio.") LocalDate dateBirth, Address address,
-			List<Consult> consults, List<Specialty> specialties) {
+			@NotNull(message = "Estado doctor obligatorio.") Boolean state, List<Consult> consults,
+			List<Specialty> specialties) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 		this.dateBirth = dateBirth;
 		this.address = address;
+		this.state = state;
 		this.consults = consults;
 		this.specialties = specialties;
 	}
@@ -134,5 +139,13 @@ public class Doctor {
 
 	public void setSpecialties(List<Specialty> specialties) {
 		this.specialties = specialties;
+	}
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
 	}
 }

@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import edu.udec.entity.ConsultDetail;
+import edu.udec.entity.Doctor;
+import edu.udec.entity.Patient;
 
 public class ConsultDto {
 
@@ -19,10 +21,13 @@ public class ConsultDto {
 	private String name;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "Fecha de consulta es obligatorio.")
 	private LocalDate date;
 	
 	private List<ConsultDetail> consultDetails;
+	
+	private Doctor doctor;
+	
+	private Patient patient;
 
 	public ConsultDto() {
 		super();
@@ -30,15 +35,15 @@ public class ConsultDto {
 
 	public ConsultDto(Integer id,
 			@Size(min = 3, max = 50, message = "Nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
-			@NotNull(message = "Fecha de consulta es obligatorio.") LocalDate date, List<ConsultDetail> consultDetails) {
+			LocalDate date, List<ConsultDetail> consultDetails, Doctor doctor, Patient patient) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.consultDetails = consultDetails;
+		this.doctor = doctor;
+		this.patient = patient;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -70,5 +75,21 @@ public class ConsultDto {
 
 	public void setConsultDetails(List<ConsultDetail> consultDetails) {
 		this.consultDetails = consultDetails;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 }

@@ -1,0 +1,132 @@
+http://localhost:8080/address/get/
+http://localhost:8080/address/getId/1
+http://localhost:8080/address/save
+{
+	"address": "Dirección Anggy",
+	"neighborhood": "Bogota"
+}
+http://localhost:8080/address/edit
+{
+	"id" : "1",
+	"address": "Dirección Anggy",
+	"neighborhood": "Funza City"
+}
+http://localhost:8080/address/delete/1
+
+http://localhost:8080/consult/get/
+http://localhost:8080/consult/getId/1
+http://localhost:8080/consult/save
+{
+	"name": "Cita de Sebas",
+	"patient" : {
+		"id" : "1"
+	},
+	"doctor" : {
+		"id" : "1"
+	}
+}
+http://localhost:8080/consult/edit
+{
+	"id" : "1",
+	"name": "Cita de Sebastian"
+}
+http://localhost:8080/consult/delete/1
+
+http://localhost:8080/patient/get/
+http://localhost:8080/patient/getId/1
+http://localhost:8080/patient/save
+{
+    "name": "Juan",
+    "lastName": "Perez",
+    "address": {
+        "address": "Dirección Juan",
+        "neighborhood": "Facatativa"
+    },
+    "dateBirth": "2020-04-16",
+    "mail": "sebas@app.com",
+    "state": true
+}
+http://localhost:8080/patient/edit
+{
+	"id": "2",
+	"name": "Yohan Sebastian",
+	"lastName": "Roldan Moreno",
+	"address":
+	{
+		"id" : "3",
+		"address": "Dirección Sebas",
+		"neighborhood": "Faca City"
+	},
+	"dateBirth" : "1998-02-25",
+	"mail" : "sebas@roldan.com",
+	"state" : "true"
+}
+http://localhost:8080/patient/delete/3
+
+http://localhost:8080/doctor/get/
+http://localhost:8080/doctor/getId/1
+http://localhost:8080/doctor/save
+{
+	"name": "Anggy",
+	"lastName": "Arguello",
+	"address":
+	{
+		"address": "Dirección Anggy",
+		"neighborhood": "Funza City"
+	},
+	"dateBirth" : "1998-07-10",
+	"mail" : "anggy@arguello.com",
+	"state" : "true"
+}
+http://localhost:8080/doctor/edit
+{
+    "id": 1,
+    "name": "Anggy Jirley",
+    "lastName": "Arguello",
+    "dateBirth": "1998-07-10",
+    "address": {
+        "id": 5,
+        "address": "Dirección Anggy",
+        "neighborhood": "Funza City"
+    },
+    "state": true,
+    "consults": null,
+    "specialties": null
+}
+http://localhost:8080/doctor/delete/2
+
+http://localhost:8080/consultDetail/get/
+http://localhost:8080/consultDetail/getId/1
+http://localhost:8080/consultDetail/save
+{
+	"diagnosis" : "Esto es un diagnostico",
+	"treatment": "Este es el tratamiento",
+	"consult" : {
+		"id": "1"
+	}
+}
+http://localhost:8080/consultDetail/edit
+http://localhost:8080/consultDetail/delete/1
+
+http://localhost:8080/specialty/get/
+http://localhost:8080/specialty/getId/1
+http://localhost:8080/specialty/save
+{
+	"name": "Medicina General"
+}
+http://localhost:8080/specialty/edit
+{
+	"id": "1",
+	"name": "Medicina General 2.0"
+}
+http://localhost:8080/specialty/delete/1
+
+http://localhost:8080/doctor/assignSpecialty/1
+[
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+]

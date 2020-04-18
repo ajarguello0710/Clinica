@@ -5,9 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -24,22 +29,27 @@ public class ConsultDetail {
 	private String diagnosis;
 
 	@Column(name = "treatment")
-	@Size(min = 5, max = 300, message = "El diagnostico no puede tener menos de 5 carácteres y más de 300.")
+	@Size(min = 5, max = 300, message = "El tratamiento no puede tener menos de 5 carácteres y más de 300.")
 	@NotNull(message = "Tratamiento es obligatorio.")
 	private String treatment;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_id_consult", nullable = false, foreignKey = @ForeignKey(name = "FK_consult_detail"))
+	private Consult consult;
 	
 	public ConsultDetail() {
 		super();
 	}
-
+	
 	public ConsultDetail(Integer id,
 			@NotNull(message = "Diagnostico es obligatoria.") @Size(min = 5, max = 300, message = "El diagnostico no puede tener menos de 5 carácteres y más de 300.") String diagnosis,
-			@Size(min = 5, max = 300, message = "El diagnostico no puede tener menos de 5 carácteres y más de 300.") @NotNull(message = "Tratamiento es obligatorio.") String treatment,
-			Consult query) {
+			@Size(min = 5, max = 300, message = "El tratamiento no puede tener menos de 5 carácteres y más de 300.") @NotNull(message = "Tratamiento es obligatorio.") String treatment,
+			Consult consult) {
 		super();
 		this.id = id;
 		this.diagnosis = diagnosis;
 		this.treatment = treatment;
+		this.consult = consult;
 	}
 
 	public Integer getId() {
@@ -64,5 +74,14 @@ public class ConsultDetail {
 
 	public void setTreatment(String treatment) {
 		this.treatment = treatment;
+	}
+
+	@JsonIgnore
+	public Consult getConsult() {
+		return consult;
+	}
+
+	public void setConsult(Consult consult) {
+		this.consult = consult;
 	}
 }
