@@ -1,22 +1,16 @@
-package edu.udec.entity;
+package edu.udec.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "consult_exam")
-@IdClass(ConsultExamPK.class)
-public class ConsultExam {
+import edu.udec.entity.Consult;
+import edu.udec.entity.Exam;
+
+public class ConsultExamDto {
 	
-	@Id
 	private Consult consult;
 	
-	@Id
 	private Exam exam;
 	
 	@Column(name = "information", nullable = false, length = 50)
@@ -24,11 +18,12 @@ public class ConsultExam {
 	@Size(min = 5, max = 300, message = "Información no puede tener menos de 5 carácteres y más de 300.")
 	private String information;
 
-	public ConsultExam() {
+	public ConsultExamDto() {
 		super();
 	}
 
-	public ConsultExam(Consult consult, Exam exam, String information) {
+	public ConsultExamDto(Consult consult, Exam exam,
+			@NotNull(message = "Información es obligatorio") @Size(min = 5, max = 300, message = "Información no puede tener menos de 5 carácteres y más de 300.") String information) {
 		super();
 		this.consult = consult;
 		this.exam = exam;

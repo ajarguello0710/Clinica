@@ -27,7 +27,7 @@ public class SpecialtyServiceI implements ISpecialtyService{
 
 	@Override
 	public SpecialtyDto getId(Integer id) {
-		return convertEntity(repository.findById(id).orElseThrow(() -> new NotFoundModelException("Especialización no encontrada.")));
+		return convertEntity(repository.findById(id).orElseThrow(() -> new NotFoundModelException("Especialidad no encontrada.")));
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class SpecialtyServiceI implements ISpecialtyService{
 			throw new NotFoundModelException("Id es requerido.");
 		}
 		Specialty specialty = repository.findById(objectEdit.getId()).orElseThrow(
-				() -> new NotFoundModelException("Especialización no encontrada."));
+				() -> new NotFoundModelException("Especialidad no encontrada."));
 		if (objectEdit.getName() != specialty.getName()) {
 			specialty.setName(objectEdit.getName());
 		}
@@ -56,7 +56,7 @@ public class SpecialtyServiceI implements ISpecialtyService{
 	@Override
 	public void delete(Integer id) {
 		if (!repository.existsById(id)) {
-			throw new NotFoundModelException("Especialización no encontrada.");
+			throw new NotFoundModelException("Especialidad no encontrada.");
 		} else {
 			repository.deleteById(id);
 		}		

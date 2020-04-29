@@ -130,3 +130,18 @@ http://localhost:8080/doctor/assignSpecialty/1
     1,
     1
 ]
+
+
+http://localhost:8080/consultExam/get
+
+http://localhost:8080/consultExam/save
+{
+    "consult": {
+        "id": 1
+    },
+    "exam": {
+        "id": 1
+    },
+    "information": "Info Adicional"
+}
+
