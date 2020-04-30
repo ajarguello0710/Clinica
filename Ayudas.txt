@@ -145,3 +145,5 @@ http://localhost:8080/consultExam/save
     "information": "Info Adicional"
 }
 
+http://localhost:8080/consultExam/getId/1
+

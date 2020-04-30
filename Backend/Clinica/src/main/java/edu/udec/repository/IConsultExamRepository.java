@@ -1,5 +1,7 @@
 package edu.udec.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import edu.udec.dto.ExamReportDto;
 import edu.udec.entity.ConsultExam;
 
 @Repository
@@ -22,5 +25,7 @@ public interface IConsultExamRepository extends JpaRepository<ConsultExam, Integ
 			@Param("idExam") Integer idExam,
 			@Param("information") String information);
 	
+	@Query("SELECT new edu.udec.dto.ExamReportDto(ce.exam, ce.information) FROM ConsultExam ce WHERE ce.consult.id = :idConsult")
+	public List<ExamReportDto> getId(@Param("idConsult") Integer idConsult);
 	
 }

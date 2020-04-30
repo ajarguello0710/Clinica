@@ -22,6 +22,15 @@ public class ConsultExamDto {
 		super();
 	}
 
+	public ConsultExamDto(Exam exam,
+			@NotNull(message = "Información es obligatorio") @Size(min = 5, max = 300, message = "Información no puede tener menos de 5 carácteres y más de 300.") String information) {
+		super();
+		this.exam = exam;
+		this.information = information;
+	}
+
+
+
 	public ConsultExamDto(Consult consult, Exam exam,
 			@NotNull(message = "Información es obligatorio") @Size(min = 5, max = 300, message = "Información no puede tener menos de 5 carácteres y más de 300.") String information) {
 		super();
