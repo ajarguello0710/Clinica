@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material": {
+    "clinica": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -11,7 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/clinica",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material:build"
+            "browserTarget": "clinica:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material:build:production"
+              "browserTarget": "clinica:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material:build"
+            "browserTarget": "clinica:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "material:serve"
+            "devServerTarget": "clinica:serve"
           }
         },
         "lint": {
@@ -124,7 +124,7 @@
       }
     }
   },
-  "defaultProject": "material",
+  "defaultProject": "clinica",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
