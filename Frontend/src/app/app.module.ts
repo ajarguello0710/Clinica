@@ -1,34 +1,47 @@
-import { MaterialModule } from './_material/material/material.module';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FullComponent } from './layouts/full/full.component';
+import { AppHeaderComponent } from './layouts/full/header/header.component';
+import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddressComponent } from './views/address/address.component';
-import { ConsultComponent } from './views/consult/consult.component';
-import { ConsultDetailComponent } from './views/consult-detail/consult-detail.component';
-import { DoctorComponent } from './views/doctor/doctor.component';
-import { PatientComponent } from './views/patient/patient.component';
-import { SpecialtyComponent } from './views/specialty/specialty.component';
+import { DemoMaterialModule } from './demo-material-module';
+
+import { SharedModule } from './shared/shared.module';
+import { SpinnerComponent } from './shared/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddressComponent,
-    ConsultComponent,
-    ConsultDetailComponent,
-    DoctorComponent,
-    PatientComponent,
-    SpecialtyComponent
+    FullComponent,
+    AppHeaderComponent,
+    SpinnerComponent,
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    DemoMaterialModule,
+    FormsModule,
+    FlexLayoutModule,
+    HttpClientModule,
+    SharedModule,
+    RouterModule.forRoot(AppRoutes)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
