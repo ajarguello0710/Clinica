@@ -13,7 +13,7 @@
         <!-- Logo text -->
         <span fxShow="false" fxShow.gt-xs>
           <!-- dark Logo text -->
-          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+          <img src="assets/images/logo-text.png" alt="homepage" class="light-logo">
           <!-- Light Logo text -->
           <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
         </span> </a>
@@ -24,9 +24,9 @@
     </button>
     <!-- <span>{{ title }}</span> -->
     <span class="example-spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <button mat-icon-button [mat-menu-trigger-for]="menu">
-      <mat-icon>more_vert</mat-icon>
+    <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon> -->
+    <button mat-icon-button [mat-menu-trigger-for]="menu" mat-icon-button class="m-r-5">
+      <img src="assets/images/users/d1.jpg" alt="user" class="profile-pic">
     </button>
     <mat-menu x-position="before" #menu="matMenu">
       <button mat-menu-item>
@@ -54,7 +54,7 @@
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item style="width: 200px;" routerLink="/doctor" (click)="sidenav.opened = false">
-        <mat-icon>person_pin</mat-icon>
+        <mat-icon>supervisor_account</mat-icon>
         <span>Doctor</span>
       </button>
       <mat-divider></mat-divider>
@@ -62,12 +62,12 @@
         <mat-icon>person_pin</mat-icon>
         <span>Paciente</span>
       </button>
-      <!-- <mat-divider></mat-divider>
-      <button mat-menu-item style="width: 200px;" routerLink="/autor" (click)="sidenav.opened = false">
-        <mat-icon>person_pin</mat-icon>
-        <span>Autores</span>
-      </button>
       <mat-divider></mat-divider>
+      <button mat-menu-item style="width: 200px;" routerLink="/consult" (click)="sidenav.opened = false">
+        <mat-icon>ballot</mat-icon>
+        <span>Consulta</span>
+      </button>
+      <!-- <mat-divider></mat-divider>
       <button mat-menu-item style="width: 200px;" routerLink="/libro" (click)="sidenav.opened = false">
         <mat-icon>menu_book</mat-icon>
         <span>Libros</span>

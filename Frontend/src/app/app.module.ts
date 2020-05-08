@@ -18,6 +18,7 @@ import { Not404Component } from './views/not404/not404.component';
 import { ErrorComponent } from './views/error/error.component';
 import { DoctorComponent } from './views/doctor/doctor.component';
 import { PatientComponent } from './views/patient/patient.component';
+import { ConsultComponent } from './views/consult/consult.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PatientComponent } from './views/patient/patient.component';
     ErrorComponent,
     DoctorComponent,
     PatientComponent,
+    ConsultComponent,
   ], entryComponents: [
     AutorDialogComponent
   ],
