@@ -1,47 +1,53 @@
-
+import { ServerErrorInterceptorService } from './shared/server-error-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AppRoutes } from './app.routing';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FullComponent } from './layouts/full/full.component';
-import { AppHeaderComponent } from './layouts/full/header/header.component';
-import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DemoMaterialModule } from './demo-material-module';
-
-import { SharedModule } from './shared/shared.module';
-import { SpinnerComponent } from './shared/spinner.component';
+/**
+ * Referencias de los componentes
+ */
+import { AutorComponent } from './views/autor/autor.component';
+import { LibroComponent } from './views/libro/libro.component';
+import { ApiReferenceModule } from './api/api-reference.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AutorDialogComponent } from './views/autor/autor-dialog/autor-dialog.component';
+import { Not404Component } from './views/not404/not404.component';
+import { ErrorComponent } from './views/error/error.component';
+import { DoctorComponent } from './views/doctor/doctor.component';
+import { PatientComponent } from './views/patient/patient.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,
-    AppHeaderComponent,
-    SpinnerComponent,
-    AppSidebarComponent
+    AutorComponent,
+    LibroComponent,
+    AutorDialogComponent,
+    Not404Component,
+    ErrorComponent,
+    DoctorComponent,
+    PatientComponent,
+  ], entryComponents: [
+    AutorDialogComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
-    DemoMaterialModule,
-    FormsModule,
-    FlexLayoutModule,
+    ApiReferenceModule,
     HttpClientModule,
-    SharedModule,
-    RouterModule.forRoot(AppRoutes)
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

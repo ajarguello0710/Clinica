@@ -1,0 +1,47 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <!-- Card column -->
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div [hidden]="!isSaving">
+                    <mat-card-title>Autores
+                        <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+                    </mat-card-title>
+                </div>
+                <div [hidden]="isSaving">
+                    <mat-card-title>Autores
+                        <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+                    </mat-card-title>
+                </div>
+
+                <div [hidden]="true">
+                    <mat-form-field class="">
+                        <input matInput placeholder="ID" required [(ngModel)]="autor.id" [disabled]="true">
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="">
+                    <input matInput placeholder="Nombre" required minlength="3" maxlength="50"
+                        [(ngModel)]="autor.nombre">
+                </mat-form-field>
+                <mat-form-field class="">
+                    <input matInput placeholder="Email" required [(ngModel)]="autor.email" type="email">
+                </mat-form-field>
+                <mat-form-field class="">
+                    <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" required
+                        [(ngModel)]="autor.fechanacimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <!-- <mat-form-field class="">
+                    <input matInput placeholder="Fecha de Nacimiento" required [(ngModel)]="autor.fechanacimiento"
+                        type="date">
+                </mat-form-field> -->
+                <div class="button-row">
+                    <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+                    <button mat-raised-button color="accent" (click)="closeDialog()">Cancelar</button>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

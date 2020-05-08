@@ -1,0 +1,59 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Pacientes</mat-card-title>
+        <mat-card-subtitle>Aquí se cargaran todos los pacientes de la Clinica.</mat-card-subtitle>
+
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Autor">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.lastName }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dateBirth">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Nacimiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.dateBirth }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button matTooltip="Ver Dirección" matTooltipPosition="before">
+                <mat-icon>add_location</mat-icon>
+              </button>
+              <button mat-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;" >
+          <mat-icon>create</mat-icon>
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

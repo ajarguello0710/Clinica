@@ -1,4 +1,85 @@
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
-<router-outlet><app-spinner></app-spinner></router-outlet>
+<div class="example-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        <!-- Logo icon --><b>
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo"> -->
+          <!-- Light Logo icon -->
+          <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo">
+        </b>
+        <!--End Logo icon -->
+        <!-- Logo text -->
+        <span fxShow="false" fxShow.gt-xs>
+          <!-- dark Logo text -->
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+          <!-- Light Logo text -->
+          <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
+        </span> </a>
+    </div>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+    <!-- <span>{{ title }}</span> -->
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu x-position="before" #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon> Configuración
+      </button>
+      <button mat-menu-item>
+        <mat-icon>account_box</mat-icon> Perfil
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon> Deshabilitar Notificaciones
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon> Cerar Sesión
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sidenav style="width: 200px;"
+      class="mat-drawer mat-sidenav dark-sidebar pl-xs ng-tns-c56-0 ng-trigger ng-trigger-transform mat-drawer-side ng-star-inserted mat-drawer-opened">
+      <button mat-menu-item style="cursor: pointer;" routerLink="/#">
+        <mat-icon>search</mat-icon>
+        <span>Buscar</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="width: 200px;" routerLink="/doctor" (click)="sidenav.opened = false">
+        <mat-icon>person_pin</mat-icon>
+        <span>Doctor</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="width: 200px;" routerLink="/patient" (click)="sidenav.opened = false">
+        <mat-icon>person_pin</mat-icon>
+        <span>Paciente</span>
+      </button>
+      <!-- <mat-divider></mat-divider>
+      <button mat-menu-item style="width: 200px;" routerLink="/autor" (click)="sidenav.opened = false">
+        <mat-icon>person_pin</mat-icon>
+        <span>Autores</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="width: 200px;" routerLink="/libro" (click)="sidenav.opened = false">
+        <mat-icon>menu_book</mat-icon>
+        <span>Libros</span>
+      </button> -->
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="container-fluid">
+        <!-- <h3>Gestión de La Clinica Pública</h3> -->
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
