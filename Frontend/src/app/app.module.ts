@@ -20,6 +20,7 @@ import { DoctorComponent } from './views/doctor/doctor.component';
 import { PatientComponent } from './views/patient/patient.component';
 import { ConsultComponent } from './views/consult/consult.component';
 import { ConsultDetailComponent } from './views/consult/consult-detail/consult-detail.component';
+import { DialogConsultComponent } from './views/consult/dialog-consult/dialog-consult.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,9 @@ import { ConsultDetailComponent } from './views/consult/consult-detail/consult-d
     PatientComponent,
     ConsultComponent,
     ConsultDetailComponent,
+    DialogConsultComponent,
   ], entryComponents: [
-    AutorDialogComponent
+    DialogConsultComponent
   ],
   imports: [
     BrowserModule,

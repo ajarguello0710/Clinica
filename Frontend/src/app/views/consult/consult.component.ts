@@ -1,3 +1,5 @@
+import { DialogConsultComponent } from './dialog-consult/dialog-consult.component';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -5,6 +7,7 @@ import { Consult } from './../../model/Consult';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConsultService } from './../../service/consult.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-consult',
@@ -13,16 +16,40 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class ConsultComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'date', 'acciones'];
+  displayedColumns: string[] = ['id', 'name', 'date', 'doctor', 'acciones'];
   dataSource = new MatTableDataSource<Consult>();
 
   @ViewChild(MatSort, { static: true }) mSort: MatSort;
   @ViewChild(MatPaginator, { static: true }) mPaginator: MatPaginator;
 
-  constructor(  private consultServ: ConsultService,
-                public route: ActivatedRoute) { }
+  constructor(
+    private consultServ: ConsultService,
+    public route: ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
+    this.consultServ.reactVar.subscribe(data => {
+      if (data === 'save') {
+        this.showMessage('Consulta Guardada con éxito', 'Guardar');
+      } else if (data === 'edit') {
+        this.showMessage('Consulta Editada con éxito', 'Editar');
+      } else if (data === 'delete') {
+        this.showMessage('Consulta Eliminada con éxito', 'Eliminar');
+      } else {
+        this.showMessage('No se puede agregar el paciente y doctor', 'Error');
+      }
+      this.list();
+    });
+    this.list();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  list() {
     this.consultServ.list().subscribe(dataConsultServ => {
       // console.log(dataConsultServ);
 
@@ -37,8 +64,18 @@ export class ConsultComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  openDialog(obj?: Consult) {
+    const consult = obj != null ? obj : new Consult();
+    this.dialog.open(DialogConsultComponent, {
+      width: '40%',
+      data: consult
+    });
+  }
+
+  showMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

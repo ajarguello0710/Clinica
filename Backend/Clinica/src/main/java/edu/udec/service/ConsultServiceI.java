@@ -18,8 +18,8 @@ import edu.udec.repository.IConsultRepository;
 import edu.udec.service.interfaces.IConsultService;
 
 @Service("Consult")
-public class ConsultServiceI implements IConsultService{
-	
+public class ConsultServiceI implements IConsultService {
+
 	@Autowired
 	IConsultRepository repository;
 
@@ -30,7 +30,8 @@ public class ConsultServiceI implements IConsultService{
 
 	@Override
 	public ConsultDto getId(Integer id) {
-		return convertEntity(repository.findById(id).orElseThrow(() -> new NotFoundModelException("Consulta no encontrada.")));
+		return convertEntity(
+				repository.findById(id).orElseThrow(() -> new NotFoundModelException("Consulta no encontrada.")));
 	}
 
 	@Override
@@ -48,9 +49,9 @@ public class ConsultServiceI implements IConsultService{
 	public ConsultDto edit(ConsultDto objectEdit) {
 		if (objectEdit.getId() == null) {
 			throw new ArgumentRequiredException("Id es requerido.");
-		} 
-		Consult consult = repository.findById(objectEdit.getId()).orElseThrow(
-				() -> new NotFoundModelException("Consulta no encontrada."));
+		}
+		Consult consult = repository.findById(objectEdit.getId())
+				.orElseThrow(() -> new NotFoundModelException("Consulta no encontrada."));
 		if (objectEdit.getName() != consult.getName()) {
 			consult.setName(objectEdit.getName());
 		}
@@ -77,7 +78,7 @@ public class ConsultServiceI implements IConsultService{
 		}
 		return consultDtos;
 	}
-	
+
 	public List<ConsultListDto> covertListEntityList(List<Consult> consults) {
 		ModelMapper mapper = new ModelMapper();
 		List<ConsultListDto> consultDtos = new ArrayList<ConsultListDto>();
@@ -86,7 +87,7 @@ public class ConsultServiceI implements IConsultService{
 		}
 		return consultDtos;
 	}
-	
+
 	public ConsultDto convertEntity(Consult consult) {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(consult, ConsultDto.class);
@@ -94,14 +95,22 @@ public class ConsultServiceI implements IConsultService{
 
 	@Override
 	public List<ConsultListDto> getConsults(boolean detail) {
-		List<Consult> consults = repository.getConsults();
+		List<ConsultListDto> consultsListDtos = covertListEntityList(repository.getConsults());
 		if (!detail) {
-			for (Consult consult : consults) {
-				consult.setConsultDetails(new ArrayList<>());
+			for (ConsultListDto consultListDto : consultsListDtos) {
+				consultListDto.setConsultDetails(new ArrayList<>());
+				consultListDto.getDoctor().setAddress(null);
+				consultListDto.getDoctor().setConsults(new ArrayList<>());
+				consultListDto.getDoctor().setSpecialties(new ArrayList<>());
+			}
+		} else {
+			for (ConsultListDto consultListDto : consultsListDtos) {
+				consultListDto.getDoctor().setAddress(null);
+				consultListDto.getDoctor().setConsults(new ArrayList<>());
+				consultListDto.getDoctor().setSpecialties(new ArrayList<>());
 			}
 		}
-		return covertListEntityList(consults);
+		return consultsListDtos;
 	}
-
 
 }

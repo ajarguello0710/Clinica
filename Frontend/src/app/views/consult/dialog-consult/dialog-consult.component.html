@@ -1,0 +1,60 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+
+        <mat-card-title>Consulta
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+        </mat-card-title>
+
+        <form class="" [formGroup]="formConsultEdit" #frmConsultEdit="ngForm">
+
+          <div [hidden]="true">
+            <mat-form-field>
+              <input matInput placeholder="Id" formControlName="id">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30" formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de Consulta" required formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doctores</mat-label>
+            <mat-select formControlName="doctor">
+              <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+                {{doctor.name + ' ' + doctor.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Pacientes</mat-label>
+            <mat-select formControlName="patient">
+              <mat-option *ngFor="let patient of patients" [value]="patient.id">
+                {{patient.name + ' ' + patient.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-fab color="primary" style="float: right;" (click)="action()">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

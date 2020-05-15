@@ -34,10 +34,10 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header> Consulta </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
             </ng-container>
-            <!-- <ng-container matColumnDef="doctor.name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Doctor </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{ element.doctor.name }}</mat-cell>
-          </ng-container> -->
+            <ng-container matColumnDef="doctor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.doctor.name + ' ' + element.doctor.lastName }}</mat-cell>
+          </ng-container>
             <ng-container matColumnDef="date">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{ element.date }}</mat-cell>
@@ -49,7 +49,7 @@
                   [routerLink]="['/consult/consultDetailt/', row.id]">
                   <mat-icon>folder_shared</mat-icon>
                 </button>
-                <button mat-button>
+                <button mat-button (click)="openDialog(row)">
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-button color="warn">

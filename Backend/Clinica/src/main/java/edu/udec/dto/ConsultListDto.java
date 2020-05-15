@@ -25,21 +25,24 @@ private Integer id;
 	
 	private List<ConsultDetail> consultDetails;
 	
-//	private Doctor doctor;
+	private Doctor doctor;
 
 	public ConsultListDto() {
 		super();
 	}
 
+
 	public ConsultListDto(Integer id,
 			@Size(min = 3, max = 50, message = "Nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
-			LocalDate date, List<ConsultDetail> consultDetails, Doctor doctor, Patient patient) {
+			LocalDate date, List<ConsultDetail> consultDetails, Doctor doctor) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.consultDetails = consultDetails;
+		this.doctor = doctor;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -72,5 +75,17 @@ private Integer id;
 	public void setConsultDetails(List<ConsultDetail> consultDetails) {
 		this.consultDetails = consultDetails;
 	}
+
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	
 
 }
