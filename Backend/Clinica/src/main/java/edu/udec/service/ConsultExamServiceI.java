@@ -42,7 +42,7 @@ public class ConsultExamServiceI implements IConsultExamService {
 			ModelMapper mapper = new ModelMapper();
 			ConsultDto consultDto = mapper.map(consultExams, ConsultDto.class);
 			consultDto.setDoctor(null);
-			consultDto.setConsultDetails(null);
+//			consultDto.setConsultDetails(null);
 			consultDto.setPatient(null);
 			consultExamReportDto.setConsultDto(consultDto);
 			

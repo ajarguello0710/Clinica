@@ -4,4 +4,6 @@ export class Consult {
   id: number;
   name: string;
   date: DatePipe;
+  // doctor: Doctor;
+  // patient: Patient;
 }

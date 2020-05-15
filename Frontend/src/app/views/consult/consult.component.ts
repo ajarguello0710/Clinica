@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Consult } from './../../model/Consult';
@@ -18,18 +19,19 @@ export class ConsultComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) mSort: MatSort;
   @ViewChild(MatPaginator, { static: true }) mPaginator: MatPaginator;
 
-  constructor(private consultServ: ConsultService) { }
+  constructor(  private consultServ: ConsultService,
+                public route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.consultServ.list().subscribe(data => {
-      console.log(data);
+    this.consultServ.list().subscribe(dataConsultServ => {
+      // console.log(dataConsultServ);
 
       this.mPaginator._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginator._intl.nextPageLabel = 'Página siguiente';
       this.mPaginator._intl.previousPageLabel = 'Página anterior';
       this.mPaginator._intl.firstPageLabel = 'Primera Página';
       this.mPaginator._intl.lastPageLabel = 'Ultima Página';
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource = new MatTableDataSource(dataConsultServ);
       this.dataSource.sort = this.mSort;
       this.dataSource.paginator = this.mPaginator;
     });

@@ -1,0 +1,114 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <!-- Ruta de navegacion -->
+    <mat-card>
+      <mat-card-header>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip [routerLink]="['/']">Inicio</mat-chip>
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-chip [routerLink]="['/consult']">Consulta</mat-chip>
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-chip color="primary" selected>Detalle Consulta</mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+    </mat-card>
+
+    <!-- Contenido Card Principal Detalle -->
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Detalle de la Consulta</mat-card-title>
+        <mat-card-subtitle>Aquí se cargaran los etalles de la consulta de la Clinica.</mat-card-subtitle>
+
+        <mat-form-field>
+          <input matInput (keyup)="applyFilterExam($event.target.value)" placeholder="Buscar Detalle Consulta">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSourceConsultDetail" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="diagnosis">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnostico </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.diagnosis }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="treatment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.treatment }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsConsultDetail"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsConsultDetail;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;">
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Exámenes</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+
+        <mat-form-field>
+          <input matInput (keyup)="applyFilterExamConsultDetail($event.target.value)" placeholder="Buscar Exámen">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSourceExam" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.exam.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.exam.name }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.exam.description }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsExam"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsExam;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;">
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

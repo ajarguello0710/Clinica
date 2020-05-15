@@ -1,3 +1,4 @@
+import { ConsultDetailComponent } from './views/consult/consult-detail/consult-detail.component';
 import { ConsultComponent } from './views/consult/consult.component';
 import { PatientComponent } from './views/patient/patient.component';
 import { DoctorComponent } from './views/doctor/doctor.component';
@@ -12,7 +13,9 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {path: 'doctor', component: DoctorComponent},
   {path: 'patient', component: PatientComponent},
-  {path: 'consult', component: ConsultComponent},
+  {path: 'consult', component: ConsultComponent, children: [
+    {path: 'consultDetailt/:id', component: ConsultDetailComponent}
+  ]},
   // {path: 'autor', component: AutorComponent},
   // {path: 'libro', component: LibroComponent},
   {path: '404', component: Not404Component},
