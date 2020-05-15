@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.udec.dto.ConsultDto;
-
+import edu.udec.dto.ConsultListDto;
 import edu.udec.service.interfaces.IConsultService;
 
 @RestController
@@ -28,11 +28,17 @@ public class ConsultController {
 	@Autowired
 	@Qualifier("Consult")
 	IConsultService service;
-	
+
 	@GetMapping("/get")
 	public ResponseEntity<List<ConsultDto>> get(){
 		List<ConsultDto> consultDtos = service.get();
 		return new ResponseEntity<List<ConsultDto>>(consultDtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/gets/{detail}")
+	public ResponseEntity<List<ConsultListDto>> get(@PathVariable boolean detail){
+		List<ConsultListDto> consultListDto = service.getConsults(detail);
+		return new ResponseEntity<List<ConsultListDto>>(consultListDto, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getId/{id}")

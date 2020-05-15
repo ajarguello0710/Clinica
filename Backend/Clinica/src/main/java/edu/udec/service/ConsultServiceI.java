@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.udec.dto.ConsultDto;
+import edu.udec.dto.ConsultListDto;
 import edu.udec.entity.Consult;
 import edu.udec.exception.ArgumentRequiredException;
 import edu.udec.exception.FilterValidationException;
@@ -77,8 +78,30 @@ public class ConsultServiceI implements IConsultService{
 		return consultDtos;
 	}
 	
+	public List<ConsultListDto> covertListEntityList(List<Consult> consults) {
+		ModelMapper mapper = new ModelMapper();
+		List<ConsultListDto> consultDtos = new ArrayList<ConsultListDto>();
+		for (Consult consult : consults) {
+			consultDtos.add(mapper.map(consult, ConsultListDto.class));
+		}
+		return consultDtos;
+	}
+	
 	public ConsultDto convertEntity(Consult consult) {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(consult, ConsultDto.class);
 	}
+
+	@Override
+	public List<ConsultListDto> getConsults(boolean detail) {
+		List<Consult> consults = repository.getConsults();
+		if (!detail) {
+			for (Consult consult : consults) {
+				consult.setConsultDetails(new ArrayList<>());
+			}
+		}
+		return covertListEntityList(consults);
+	}
+
+
 }

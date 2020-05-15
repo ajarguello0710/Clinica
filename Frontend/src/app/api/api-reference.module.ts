@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { MatNativeDateModule } from '@angular/material';
     MatListModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatChipsModule
   ], exports: [
     MatButtonModule,
     MatIconModule,
@@ -72,7 +74,8 @@ import { MatNativeDateModule } from '@angular/material';
     MatStepperModule,
     MatListModule,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatChipsModule
   ]
 })
 export class ApiReferenceModule { }

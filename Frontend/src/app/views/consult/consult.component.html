@@ -1,11 +1,68 @@
 <div fxLayout="row" fxLayoutWrap="wrap">
   <!-- Card column -->
   <div fxFlex.gt-sm="100%" fxFlex="100">
+    <!-- Ruta de navegacion -->
+    <mat-card>
+      <mat-card-header>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip [routerLink]="['/']">Inicio</mat-chip>
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-chip color="primary" selected>Consulta</mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+    </mat-card>
     <mat-card>
       <mat-card-content>
         <mat-card-title>Consulta</mat-card-title>
         <mat-card-subtitle>Aquí se cargaran todas las consultas de la Clinica.</mat-card-subtitle>
 
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Consulta">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Consulta </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="doctor.name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Doctor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.doctor.name }}</mat-cell>
+          </ng-container> -->
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.date }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button matTooltip="Ver Detalle de a Consulta" matTooltipPosition="before"
+              [routerLink] = "['/consult/detailAndExam/', row.id]">
+                <mat-icon>folder_shared</mat-icon>
+              </button>
+              <button mat-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;" routerLink="/consult/saveDetailAndExam">
+          <mat-icon>my_library_add</mat-icon>
+        </button>
 
       </mat-card-content>
     </mat-card>

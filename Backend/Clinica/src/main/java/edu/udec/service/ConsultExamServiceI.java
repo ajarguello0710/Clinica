@@ -19,7 +19,7 @@ import edu.udec.repository.IConsultRepository;
 import edu.udec.service.interfaces.IConsultExamService;
 
 @Service("ConsultExam")
-public class ConsultExamI implements IConsultExamService {
+public class ConsultExamServiceI implements IConsultExamService {
 	
 	@Autowired
 	private IConsultExamRepository repository;
