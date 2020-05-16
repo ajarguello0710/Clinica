@@ -64,7 +64,7 @@ export class ConsultComponent implements OnInit {
     });
   }
 
-  openDialog(obj?: Consult) {
+  openDialogEdit(obj?: Consult) {
     const consult = obj != null ? obj : new Consult();
     this.dialog.open(DialogConsultComponent, {
       width: '40%',

@@ -17,7 +17,8 @@
           </div>
 
           <mat-form-field>
-            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30" formControlName="name">
+            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30"
+              formControlName="name">
           </mat-form-field>
 
           <mat-form-field>
@@ -28,7 +29,8 @@
 
           <mat-form-field>
             <mat-label>Doctores</mat-label>
-            <mat-select formControlName="doctor">
+            <!-- revisar, no toma el select default -->
+            <mat-select formControlName="doctor" [(value)]="doctorValue.name">
               <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
                 {{doctor.name + ' ' + doctor.lastName}}
               </mat-option>
@@ -44,13 +46,15 @@
             </mat-select>
           </mat-form-field>
 
-          <button mat-fab color="primary" style="float: right;" (click)="action()">
-            <mat-icon>save</mat-icon>
-          </button>
+          <div class="button-row">
+            <button mat-fab color="primary" style="float: right;" (click)="action()">
+              <mat-icon>save</mat-icon>
+            </button>
 
-          <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
-            <mat-icon>cancel</mat-icon>
-          </button>
+            <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
 
         </form>
 

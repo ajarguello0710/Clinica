@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class PatientService {
 
-  url = `${environment.HOST}/doctor`;
+  url = `${environment.HOST}/patient`;
 
   constructor(private http: HttpClient) { }
 

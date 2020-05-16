@@ -1,3 +1,4 @@
+import { Doctor } from './../../../model/Doctor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PatientService } from './../../../service/patient.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -17,6 +18,7 @@ export class DialogConsultComponent implements OnInit {
   consult: Consult;
   doctors = [];
   patients = [];
+  doctorValue: Doctor;
 
   formConsultEdit: FormGroup;
 
@@ -51,6 +53,8 @@ export class DialogConsultComponent implements OnInit {
       doctor: new FormControl(this.dataConsult.doctor),
       patient: new FormControl('')
     });
+    // revisar no inicializa docotor
+    this.doctorValue = this.dataConsult.doctor;
   }
 
   action() {
@@ -69,7 +73,7 @@ export class DialogConsultComponent implements OnInit {
     const json = JSON.stringify(datosForm);
     const dataDB = JSON.parse(json);
 
-    console.log(dataDB);
+    // console.log(dataDB);
 
     this.consultServ.edit(dataDB).subscribe(() => {
       this.closeDialog();

@@ -1,3 +1,6 @@
+import { ConsultDetailService } from './../../../service/consult-detail.service';
+import { DialogConsultDetailComponent } from './dialog-consult-detail/dialog-consult-detail.component';
+import { MatDialog } from '@angular/material/dialog';
 import { ConsultDetail } from './../../../model/ConsultDetail';
 import { ExamReportDtos } from './../../../model/ExamReportDtos';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConsultExamService } from './../../../service/consult-exam.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-consult-detail',
@@ -30,14 +34,38 @@ export class ConsultDetailComponent implements OnInit {
 
   constructor(
     private consultExamServ: ConsultExamService,
-    private route: ActivatedRoute) { }
+    private consultDetailService: ConsultDetailService,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((param: Params) => {
       this.idExam = param.id;
       // console.log(this.idExam);
+
+      this.consultDetailService.reactVar.subscribe(data => {
+        if (data === 'save') {
+          this.showMessage('Detalle de la Consulta Guardada con éxito', 'Guardar');
+        } else if (data === 'edit') {
+          this.showMessage('Detalle de la Consulta Editada con éxito', 'Editar');
+        } else if (data === 'delete') {
+          this.showMessage('Detalle de la Consulta Eliminada con éxito', 'Eliminar');
+        } else {
+          this.showMessage('No se puede agregar el paciente y doctor', 'Error');
+        }
+        this.listConsultDetail();
+        this.listExam();
+      });
     });
 
+    this.listConsultDetail();
+    this.listExam();
+
+  }
+
+  listConsultDetail() {
     this.consultExamServ.list(this.idExam).subscribe(dataExamServ => {
       // console.log(dataExamServ.consultDto.consultDetails[0]);
 
@@ -49,6 +77,11 @@ export class ConsultDetailComponent implements OnInit {
       this.dataSourceConsultDetail = new MatTableDataSource(dataExamServ.consultDto.consultDetails);
       this.dataSourceConsultDetail.sort = this.mSortConsultDetail;
       this.dataSourceConsultDetail.paginator = this.mPaginatorConsultDetail;
+    });
+  }
+
+  listExam() {
+    this.consultExamServ.list(this.idExam).subscribe(dataExamServ => {
 
       this.mPaginatorExam._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginatorExam._intl.nextPageLabel = 'Página siguiente';
@@ -59,7 +92,6 @@ export class ConsultDetailComponent implements OnInit {
       this.dataSourceExam.sort = this.mSortExam;
       this.dataSourceExam.paginator = this.mPaginatorExam;
     });
-
   }
 
   applyFilterExam(filterValue: string) {
@@ -68,6 +100,22 @@ export class ConsultDetailComponent implements OnInit {
 
   applyFilterExamConsultDetail(filterValue: string) {
     this.dataSourceConsultDetail.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDiaogEditConsult(obj?: ConsultDetail) {
+    const consultDetail = obj != null ? obj : new ConsultDetail();
+    this.dialog.open(DialogConsultDetailComponent, {
+      width: '40%',
+      data: consultDetail
+    });
+  }
+
+
+
+  showMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

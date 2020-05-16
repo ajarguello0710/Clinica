@@ -41,7 +41,7 @@
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-button>
+              <button mat-button (click)="openDiaogEditConsult(row)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button color="warn">
