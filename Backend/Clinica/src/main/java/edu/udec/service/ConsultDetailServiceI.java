@@ -52,7 +52,7 @@ public class ConsultDetailServiceI implements IConsultDetailService {
 			consultDetail.setDiagnosis(objectEdit.getDiagnosis());
 		}
 		if (objectEdit.getTreatment() != consultDetail.getTreatment()) {
-			consultDetail.setDiagnosis(objectEdit.getDiagnosis());
+			consultDetail.setTreatment(objectEdit.getTreatment());
 		}
 		return convertEntity(repository.save(consultDetail));
 	}

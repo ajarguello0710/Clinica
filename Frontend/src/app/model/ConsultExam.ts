@@ -1,6 +1,7 @@
-import { ConsutlDto } from './ConsultDto';
-import { ExamReportDtos } from './ExamReportDtos';
+import { Exam } from './Exam';
+import { Consult } from './Consult';
 export class ConsultExam {
-  consultDto: ConsutlDto;
-  examReportDtos: ExamReportDtos[];
+  consult: Consult;
+  exam: Exam;
+  information: string;
 }

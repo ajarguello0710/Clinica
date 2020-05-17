@@ -1,3 +1,6 @@
+import { ExamService } from './../../../service/exam.service';
+import { ConsultExam } from './../../../model/ConsultExam';
+import { DialogConsultExamComponent } from './dialog-consult-exam/dialog-consult-exam.component';
 import { ConsultDetailService } from './../../../service/consult-detail.service';
 import { DialogConsultDetailComponent } from './dialog-consult-detail/dialog-consult-detail.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +13,7 @@ import { ConsultExamService } from './../../../service/consult-exam.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Exam } from 'src/app/model/Exam';
 
 @Component({
   selector: 'app-consult-detail',
@@ -19,6 +23,7 @@ import { MatSnackBar } from '@angular/material';
 export class ConsultDetailComponent implements OnInit {
 
   idExam: number;
+  exam: Exam;
 
   displayedColumnsExam: string[] = ['id', 'name', 'description', 'acciones'];
   dataSourceExam = new MatTableDataSource<ExamReportDtos>();
@@ -35,6 +40,7 @@ export class ConsultDetailComponent implements OnInit {
   constructor(
     private consultExamServ: ConsultExamService,
     private consultDetailService: ConsultDetailService,
+    private examServ: ExamService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
@@ -56,6 +62,18 @@ export class ConsultDetailComponent implements OnInit {
           this.showMessage('No se puede agregar el paciente y doctor', 'Error');
         }
         this.listConsultDetail();
+      });
+
+      this.examServ.reactVar.subscribe(data => {
+        if (data === 'save') {
+          this.showMessage('Exámen Guardado con éxito', 'Guardar');
+        } else if (data === 'edit') {
+          this.showMessage('Exámen Editado con éxito', 'Editar');
+        } else if (data === 'delete') {
+          this.showMessage('Exámen Eliminado con éxito', 'Eliminar');
+        } else {
+          this.showMessage('No se puede agregar el paciente y doctor', 'Error');
+        }
         this.listExam();
       });
     });
@@ -110,7 +128,13 @@ export class ConsultDetailComponent implements OnInit {
     });
   }
 
-
+  openDialogEditExam(obj?: ExamReportDtos) {
+    const exam = obj != null ? obj : new ExamReportDtos();
+    this.dialog.open(DialogConsultExamComponent, {
+      width: '40%',
+      data: exam.exam
+    });
+  }
 
   showMessage(message: string, action: string) {
     this.snackBar.open(message, action, {

@@ -17,6 +17,10 @@ public class ExamDto implements Serializable {
 	
 	
 
+	public ExamDto() {
+		super();
+	}
+
 	public ExamDto(Integer id, String name, String description) {
 		super();
 		this.id = id;

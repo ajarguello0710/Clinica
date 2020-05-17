@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import edu.udec.dto.ExamDto;
 import edu.udec.entity.Exam;
+import edu.udec.exception.FilterValidationException;
+import edu.udec.exception.NotFoundModelException;
 import edu.udec.repository.IExamRepository;
 import edu.udec.service.interfaces.IExamService;
 
@@ -37,6 +39,50 @@ public class ExamServiceI implements IExamService {
 	public ExamDto convertEntity(Exam exam) {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(exam, ExamDto.class);
+	}
+
+	@Override
+	public List<ExamDto> get() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ExamDto getId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ExamDto save(ExamDto objectSave) {
+		if (objectSave.getId() == null) {
+			ModelMapper mapper = new ModelMapper();
+			return convertEntity(repository.save(mapper.map(objectSave, Exam.class)));
+		} else {
+			throw new FilterValidationException("Id no es requerido");
+		}
+	}
+
+	@Override
+	public ExamDto edit(ExamDto objectEdit) {
+		if (objectEdit.getId() == null) {
+			throw new NotFoundModelException("Id es requerido.");
+		}
+		Exam exam = repository.findById(objectEdit.getId()).orElseThrow(
+				() -> new NotFoundModelException("Especialidad no encontrada."));
+		if (objectEdit.getName() != exam.getName()) {
+			exam.setName(objectEdit.getName());
+		}
+		if (objectEdit.getDescription() != exam.getDescription()) {
+			exam.setDescription(objectEdit.getDescription());
+		}
+		return convertEntity(repository.save(exam));
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

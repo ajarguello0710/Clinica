@@ -22,6 +22,7 @@ import { ConsultComponent } from './views/consult/consult.component';
 import { ConsultDetailComponent } from './views/consult/consult-detail/consult-detail.component';
 import { DialogConsultComponent } from './views/consult/dialog-consult/dialog-consult.component';
 import { DialogConsultDetailComponent } from './views/consult/consult-detail/dialog-consult-detail/dialog-consult-detail.component';
+import { DialogConsultExamComponent } from './views/consult/consult-detail/dialog-consult-exam/dialog-consult-exam.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +38,11 @@ import { DialogConsultDetailComponent } from './views/consult/consult-detail/dia
     ConsultDetailComponent,
     DialogConsultComponent,
     DialogConsultDetailComponent,
+    DialogConsultExamComponent,
   ], entryComponents: [
     DialogConsultComponent,
-    DialogConsultDetailComponent
+    DialogConsultDetailComponent,
+    DialogConsultExamComponent
   ],
   imports: [
     BrowserModule,

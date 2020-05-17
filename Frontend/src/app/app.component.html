@@ -1,5 +1,11 @@
 <div class="example-container">
   <mat-toolbar color="primary" class="topbar telative">
+
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+
     <div class="navbar-header">
       <a class="navbar-brand" href="index.html">
         <!-- Logo icon --><b>
@@ -18,10 +24,7 @@
           <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
         </span> </a>
     </div>
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
-      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
-    </button>
+
     <!-- <span>{{ title }}</span> -->
     <span class="example-spacer"></span>
     <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon> -->
