@@ -68,6 +68,11 @@ public class Doctor {
 		super();
 	}
 
+	public Doctor(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Doctor(Integer id,
 			@NotNull(message = "Nombre médico es obligatorio.") @Size(min = 3, max = 50, message = "Nombre del médico no puede tener menos de 3 carácteres y más de 50.") String name,
 			@NotNull(message = "Apellido médico es obligatorio.") @Size(min = 3, max = 50, message = "Apellido del médico no puede tener menos de 3 carácteres y más de 50.") String lastName,

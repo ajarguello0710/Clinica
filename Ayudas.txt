@@ -147,3 +147,30 @@ http://localhost:8080/consultExam/save
 
 http://localhost:8080/consultExam/getId/1
 
+http://localhost:8080/consult/saveFull
+{
+  "name": "Prueba Consulta grande",
+  "date": "2020-05-17",
+  "doctor": 1,
+  "patient": 1,
+  "consultDetailDtos": [
+    {
+      "diagnosis": "Gripe",
+      "treatment": "Pastas"
+    },
+    {
+      "diagnosis": "Migraña",
+      "treatment": "Dormir"
+    }
+  ],
+  "exams": [
+    {
+      "name": "Sangre",
+      "description": "Muchas sangre"
+    },
+    {
+      "name": "Chichi",
+      "description": "Más chichi"
+    }
+  ]
+}

@@ -7,31 +7,46 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.udec.dto.ConsultDto;
 import edu.udec.dto.ConsultListDto;
+import edu.udec.dto.ExamDto;
+import edu.udec.dto.FullConsult;
 import edu.udec.entity.Consult;
+import edu.udec.entity.ConsultDetail;
+import edu.udec.entity.Doctor;
+import edu.udec.entity.Exam;
+import edu.udec.entity.Patient;
 import edu.udec.exception.ArgumentRequiredException;
 import edu.udec.exception.FilterValidationException;
 import edu.udec.exception.NotFoundModelException;
+import edu.udec.repository.IConsultDetailRepository;
 import edu.udec.repository.IConsultRepository;
+import edu.udec.repository.IExamRepository;
 import edu.udec.service.interfaces.IConsultService;
 
 @Service("Consult")
 public class ConsultServiceI implements IConsultService {
 
 	@Autowired
-	IConsultRepository repository;
+	IConsultRepository repositoryConsult;
+	
+	@Autowired
+	IExamRepository repositoryExam;
+	
+	@Autowired
+	IConsultDetailRepository repositoryConsultDetail;
 
 	@Override
 	public List<ConsultDto> get() {
-		return covertListEntity(repository.findAll());
+		return covertListEntity(repositoryConsult.findAll());
 	}
 
 	@Override
 	public ConsultDto getId(Integer id) {
 		return convertEntity(
-				repository.findById(id).orElseThrow(() -> new NotFoundModelException("Consulta no encontrada.")));
+				repositoryConsult.findById(id).orElseThrow(() -> new NotFoundModelException("Consulta no encontrada.")));
 	}
 
 	@Override
@@ -39,7 +54,7 @@ public class ConsultServiceI implements IConsultService {
 		if (objectSave.getId() == null) {
 			ModelMapper mapper = new ModelMapper();
 			objectSave.setDate(LocalDate.now());
-			return convertEntity(repository.save(mapper.map(objectSave, Consult.class)));
+			return convertEntity(repositoryConsult.save(mapper.map(objectSave, Consult.class)));
 		} else {
 			throw new FilterValidationException("Id no es requerido.");
 		}
@@ -50,24 +65,55 @@ public class ConsultServiceI implements IConsultService {
 		if (objectEdit.getId() == null) {
 			throw new ArgumentRequiredException("Id es requerido.");
 		}
-		Consult consult = repository.findById(objectEdit.getId())
+		Consult consult = repositoryConsult.findById(objectEdit.getId())
 				.orElseThrow(() -> new NotFoundModelException("Consulta no encontrada."));
 		if (objectEdit.getName() != consult.getName()) {
 			consult.setName(objectEdit.getName());
 		}
-		if (objectEdit.getDate() != consult.getDate()) {
-			consult.setDate(objectEdit.getDate());
+		if (objectEdit.getDate() != null) {
+			if (objectEdit.getDate() != (consult.getDate())) {
+				consult.setDate(objectEdit.getDate());
+			}
 		}
-		return convertEntity(repository.save(consult));
+		if (objectEdit.getDoctor() != consult.getDoctor()) {
+			consult.setDoctor(objectEdit.getDoctor());
+		}
+		if (objectEdit.getPatient() != consult.getPatient()) {
+			consult.setPatient(objectEdit.getPatient() );
+		}
+		return convertEntity(repositoryConsult.save(consult));
 	}
 
 	@Override
 	public void delete(Integer id) {
-		if (!repository.existsById(id)) {
+		if (!repositoryConsult.existsById(id)) {
 			throw new NotFoundModelException("Consulta no encontrada.");
 		} else {
-			repository.deleteById(id);
+			repositoryConsult.deleteById(id);
 		}
+	}
+	
+	@Transactional
+	@Override
+	public FullConsult SaveFullConsult(FullConsult fullConsult) {
+		if (fullConsult.getDoctor() == null) {
+			throw new ArgumentRequiredException("Doctor es requerido"); 
+		}
+		if (fullConsult.getPatient() == null) {
+			throw new ArgumentRequiredException("Paciente es requerido"); 
+		}
+		ModelMapper mapper = new ModelMapper();
+		Consult consult = new Consult(fullConsult.getName(), fullConsult.getDate(), new Doctor(fullConsult.getDoctor()), new Patient(fullConsult.getPatient()));
+		repositoryConsult.save(consult);
+		for (ConsultDetail consultDetail: fullConsult.getConsultDetailDtos()) {
+			consultDetail.setConsult(consult);
+			repositoryConsultDetail.save(consultDetail);
+		}
+		for (Exam exam: fullConsult.getExams()) {
+			exam = repositoryExam.save(mapper.map(exam, Exam.class));
+			
+		}
+		return fullConsult;
 	}
 
 	public List<ConsultDto> covertListEntity(List<Consult> consults) {
@@ -95,7 +141,7 @@ public class ConsultServiceI implements IConsultService {
 
 	@Override
 	public List<ConsultListDto> getConsults(boolean detail) {
-		List<ConsultListDto> consultsListDtos = covertListEntityList(repository.getConsults());
+		List<ConsultListDto> consultsListDtos = covertListEntityList(repositoryConsult.getConsults());
 		if (!detail) {
 			for (ConsultListDto consultListDto : consultsListDtos) {
 				consultListDto.setConsultDetails(new ArrayList<>());

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.udec.dto.ConsultDto;
 import edu.udec.dto.ConsultListDto;
+import edu.udec.dto.FullConsult;
 import edu.udec.service.interfaces.IConsultService;
 
 @RestController
@@ -51,6 +52,12 @@ public class ConsultController {
 	public ResponseEntity<ConsultDto> save(@Valid @RequestBody ConsultDto consultDto ){
 		ConsultDto consult = service.save(consultDto );
 		return new ResponseEntity<ConsultDto>(consult, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/saveFull")
+	public ResponseEntity<FullConsult> saveFull(@Valid @RequestBody FullConsult fullConsult ){
+		FullConsult consult = service.SaveFullConsult(fullConsult);
+		return new ResponseEntity<FullConsult>(consult, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/edit")

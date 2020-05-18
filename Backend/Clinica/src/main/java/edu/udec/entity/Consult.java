@@ -55,14 +55,23 @@ public class Consult {
 		super();
 	}
 
-	public Consult(Integer id,
+	public Consult(
 			@Size(min = 3, max = 50, message = "Nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
 			LocalDate date, List<ConsultDetail> consultDetails, Doctor doctor, Patient patient) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.consultDetails = consultDetails;
+		this.doctor = doctor;
+		this.patient = patient;
+	}
+
+	public Consult(
+			@Size(min = 3, max = 50, message = "Nombre de la consulta no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre de la consulta es obligatorio.") String name,
+			LocalDate date, Doctor doctor, Patient patient) {
+		super();
+		this.name = name;
+		this.date = date;
 		this.doctor = doctor;
 		this.patient = patient;
 	}

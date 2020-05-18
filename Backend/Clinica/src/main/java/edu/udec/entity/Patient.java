@@ -54,6 +54,11 @@ public class Patient {
 	public Patient() {
 		super();
 	}
+	
+	public Patient(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Patient(Integer id,
 			@Size(min = 3, max = 50, message = "El nombre del paciente no puede tener menos de 3 carácteres y más de 50.") @NotNull(message = "El nombre del paciente es obligatorio.") String name,
