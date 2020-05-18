@@ -1,3 +1,4 @@
+import { ConsultDetailSaveComponent } from './views/consult/consult-detail-save/consult-detail-save.component';
 import { ConsultDetailComponent } from './views/consult/consult-detail/consult-detail.component';
 import { ConsultComponent } from './views/consult/consult.component';
 import { PatientComponent } from './views/patient/patient.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'doctor', component: DoctorComponent},
   {path: 'patient', component: PatientComponent},
   {path: 'consult', component: ConsultComponent, children: [
-    {path: 'consultDetailt/:id', component: ConsultDetailComponent}
+    {path: 'detail/:id', component: ConsultDetailComponent},
+    {path: 'save', component: ConsultDetailSaveComponent}
   ]},
   // {path: 'autor', component: AutorComponent},
   // {path: 'libro', component: LibroComponent},

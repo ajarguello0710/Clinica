@@ -23,6 +23,15 @@ import { ConsultDetailComponent } from './views/consult/consult-detail/consult-d
 import { DialogConsultComponent } from './views/consult/dialog-consult/dialog-consult.component';
 import { DialogConsultDetailComponent } from './views/consult/consult-detail/dialog-consult-detail/dialog-consult-detail.component';
 import { DialogConsultExamComponent } from './views/consult/consult-detail/dialog-consult-exam/dialog-consult-exam.component';
+import { ConsultDetailSaveComponent } from './views/consult/consult-detail-save/consult-detail-save.component';
+// tslint:disable-next-line: max-line-length
+import { DialogExamConsultSaveComponent } from './views/consult/consult-detail-save/dialog-exam-consult-save/dialog-exam-consult-save.component';
+// tslint:disable-next-line: max-line-length
+import { DialogDetailConsultSaveComponent } from './views/consult/consult-detail-save/dialog-detail-consult-save/dialog-detail-consult-save.component';
+// tslint:disable-next-line: max-line-length
+import { DialogExamConsultEditComponent } from './views/consult/consult-detail-save/dialog-exam-consult-edit/dialog-exam-consult-edit.component';
+// tslint:disable-next-line: max-line-length
+import { DialogDetailConsultEditComponent } from './views/consult/consult-detail-save/dialog-detail-consult-edit/dialog-detail-consult-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +48,19 @@ import { DialogConsultExamComponent } from './views/consult/consult-detail/dialo
     DialogConsultComponent,
     DialogConsultDetailComponent,
     DialogConsultExamComponent,
+    ConsultDetailSaveComponent,
+    DialogExamConsultSaveComponent,
+    DialogDetailConsultSaveComponent,
+    DialogExamConsultEditComponent,
+    DialogDetailConsultEditComponent,
   ], entryComponents: [
     DialogConsultComponent,
     DialogConsultDetailComponent,
-    DialogConsultExamComponent
+    DialogConsultExamComponent,
+    DialogExamConsultSaveComponent,
+    DialogDetailConsultSaveComponent,
+    DialogExamConsultEditComponent,
+    DialogDetailConsultEditComponent
   ],
   imports: [
     BrowserModule,

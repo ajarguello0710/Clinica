@@ -37,6 +37,8 @@ export class ConsultComponent implements OnInit {
         this.showMessage('Consulta Editada con éxito', 'Editar');
       } else if (data === 'delete') {
         this.showMessage('Consulta Eliminada con éxito', 'Eliminar');
+      } else if (data === 'saveFull') {
+        this.showMessage('Consulta Guardada con éxito', 'Guardar');
       } else {
         this.showMessage('No se puede agregar el paciente y doctor', 'Error');
       }

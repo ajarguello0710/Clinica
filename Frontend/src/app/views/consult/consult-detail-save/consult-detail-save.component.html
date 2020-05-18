@@ -1,0 +1,202 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <!-- Ruta de navegacion -->
+    <mat-card>
+      <mat-card-header>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip [routerLink]="['/']">Inicio</mat-chip>
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-chip [routerLink]="['/consult']">Consulta</mat-chip>
+          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-chip color="primary" selected>Guardar Consulta</mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+    </mat-card>
+
+    <!-- Contenido Card Principal Formulario Guardar -->
+
+  </div>
+</div>
+
+<div fxlayout="row" style="flex-direction: row; box-sizing: border-box; display: flex;">
+  <!-- Card para agregar dettale de la consulta -->
+  <div fxflex.gt-sm="80%" style="width: max-content;">
+    <mat-card class="mat-card">
+      <mat-card-content class="mat-card-content">
+        <mat-card-title class="mat-card-title">Consulta
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+        </mat-card-title>
+        <mat-card-subtitle class="mat-card-subtitle">
+          Llenar todos los campos, agregar detalles y guardar consulta
+        </mat-card-subtitle>
+
+        <form class="" [formGroup]="formConsultSave" #frmConsultSave="ngForm" (ngSubmit)="action()">
+
+          <mat-form-field>
+            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30"
+              formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de Consulta" required formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doctores</mat-label>
+            <!-- revisar, no toma el select default -->
+            <mat-select formControlName="doctor" required>
+              <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+                {{doctor.name + ' ' + doctor.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Pacientes</mat-label>
+            <mat-select formControlName="patient" required>
+              <mat-option *ngFor="let patient of patients" [value]="patient.id">
+                {{patient.name + ' ' + patient.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Card para agregar examen de la consulta -->
+  <div fxflex.gt-sm="20%" style="width: max-content;">
+    <mat-card class="mat-card">
+      <mat-card-content class="mat-card-content">
+        <mat-card-title class="mat-card-title">Guardar Consuta &nbsp; &nbsp; &nbsp;
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">New </span>&nbsp; &nbsp; &nbsp; &nbsp;
+        </mat-card-title>
+        <mat-card-subtitle class="mat-card-subtitle">
+          Guardar Consulta
+        </mat-card-subtitle>
+        <hr>
+        <br><br>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" (click)="action()" [disabled]="formConsultSave.invalid" class="mat-raised-button mat-button-base " style="align-items: center;" >
+            <mat-icon>save</mat-icon>
+            <span> Guardar Consulta</span>
+          </button>
+        </div><br><br>
+
+        <div class="button-row">
+          <button mat-raised-button color="warn" routerLink="/consult" class="mat-raised-button mat-button-base" style="align-items: center;">
+            <mat-icon>cancel</mat-icon>
+            <span> Cancelar y Salir </span>
+          </button>
+        </div>
+        <br><br><br>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- div general para los dos card -->
+<div fxlayout="row" style="flex-direction: row; box-sizing: border-box; display: flex;">
+  <!-- Card para agregar dettale de la consulta -->
+  <div fxflex.gt-sm="50%">
+    <mat-card class="mat-card">
+      <mat-card-content class="mat-card-content">
+        <mat-card-title class="mat-card-title">Detalle
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+        </mat-card-title>
+        <mat-card-subtitle class="mat-card-subtitle">
+          Por favor, agregar detalle a la consulta, los cambios seran guardados al guardar la consulta
+        </mat-card-subtitle>
+
+        <mat-table [dataSource]="dataSourceConsultDetail" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="diagnosis">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnóstico </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.diagnosis }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="treatment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.treatment }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button (click)="openDialogDetailEdit(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn" (click)="listDetailDelete(row.id)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsConsultDetail"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsConsultDetail;"></mat-row>
+        </mat-table>
+
+        <button mat-fab color="primary" style="float: right;" (click)="openDialogDetailSave()">
+          <mat-icon>my_library_add</mat-icon>
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- Card para agregar examen de la consulta -->
+  <div fxflex.gt-sm="50%">
+    <mat-card class="mat-card">
+      <mat-card-content class="mat-card-content">
+        <mat-card-title class="mat-card-title">Exámen
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+        </mat-card-title>
+        <mat-card-subtitle class="mat-card-subtitle">
+          Por favor, agregar examen(es) a la consulta, los cambios seran guardados al guardar la consulta
+        </mat-card-subtitle>
+
+        <mat-table [dataSource]="dataSourceExam" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.description }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button (click)="openDialogExamEdit(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn" (click)="listExamDelete(row.id)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsExam"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsExam;"></mat-row>
+        </mat-table>
+
+        <button mat-fab color="primary" style="float: right;" (click)="openDialogExamSave()">
+          <mat-icon>my_library_add</mat-icon>
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

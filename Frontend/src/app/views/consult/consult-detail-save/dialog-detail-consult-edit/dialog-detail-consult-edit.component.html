@@ -1,0 +1,42 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+
+        <mat-card-title class="mat-card-title">Detalle
+          <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+        </mat-card-title>
+
+        <form class="" [formGroup]="formDetailEdit">
+
+          <div [hidden]="true">
+            <mat-form-field>
+              <input matInput placeholder="Id" formControlName="id">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Diagnóstico" required minlength="3" maxlength="30" formControlName="diagnosis">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Tratamiento" required minlength="3" maxlength="30" formControlName="treatment">
+          </mat-form-field>
+
+          <div class="button-row">
+            <button mat-fab color="primary" [disabled]="formDetailEdit.invalid" style="float: right;" (click)="action()">
+              <mat-icon>save</mat-icon>
+            </button>
+
+            <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -46,7 +46,7 @@
               <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <button mat-button matTooltip="Ver Detalle de a Consulta" matTooltipPosition="before"
-                  [routerLink]="['/consult/consultDetailt/', row.id]">
+                  [routerLink]="['/consult/detail/', row.id]">
                   <mat-icon>folder_shared</mat-icon>
                 </button>
                 <button mat-button (click)="openDialogEdit(row)">
@@ -64,7 +64,7 @@
 
           <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-          <button mat-fab color="primary" style="float: right;" routerLink="/consult/saveDetailAndExam">
+          <button mat-fab color="primary" style="float: right;" routerLink="/consult/save">
             <mat-icon>my_library_add</mat-icon>
           </button>
 
