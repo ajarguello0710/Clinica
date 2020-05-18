@@ -15,6 +15,7 @@ import edu.udec.dto.ExamDto;
 import edu.udec.dto.FullConsult;
 import edu.udec.entity.Consult;
 import edu.udec.entity.ConsultDetail;
+import edu.udec.entity.ConsultExam;
 import edu.udec.entity.Doctor;
 import edu.udec.entity.Exam;
 import edu.udec.entity.Patient;
@@ -22,6 +23,7 @@ import edu.udec.exception.ArgumentRequiredException;
 import edu.udec.exception.FilterValidationException;
 import edu.udec.exception.NotFoundModelException;
 import edu.udec.repository.IConsultDetailRepository;
+import edu.udec.repository.IConsultExamRepository;
 import edu.udec.repository.IConsultRepository;
 import edu.udec.repository.IExamRepository;
 import edu.udec.service.interfaces.IConsultService;
@@ -37,6 +39,9 @@ public class ConsultServiceI implements IConsultService {
 	
 	@Autowired
 	IConsultDetailRepository repositoryConsultDetail;
+	
+	@Autowired
+	private IConsultExamRepository repositoryConsultExam;
 
 	@Override
 	public List<ConsultDto> get() {
@@ -111,7 +116,8 @@ public class ConsultServiceI implements IConsultService {
 		}
 		for (Exam exam: fullConsult.getExams()) {
 			exam = repositoryExam.save(mapper.map(exam, Exam.class));
-			
+
+			repositoryConsultExam.save(consult.getId(), exam.getId(), exam.getDescription());
 		}
 		return fullConsult;
 	}
