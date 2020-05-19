@@ -4,11 +4,18 @@
     <mat-card>
       <mat-card-content>
 
-        <mat-card-title>Consulta
-          <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
-        </mat-card-title>
+        <diV [hidden]="isSaving">
+          <mat-card-title>Consulta &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+          </mat-card-title>
+        </diV>
+        <diV [hidden]="!isSaving">
+          <mat-card-title>Consulta &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+          </mat-card-title>
+        </diV>
 
-        <form class="" [formGroup]="formConsultDetailEdit">
+        <form class="" [formGroup]="formConsultDetail">
 
           <div [hidden]="true">
             <mat-form-field>
@@ -17,17 +24,17 @@
           </div>
 
           <mat-form-field>
-            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30"
+            <input matInput placeholder="Diagnóstico" required minlength="3" maxlength="30"
               formControlName="diagnosis">
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="Nombre de Consulta" required minlength="3" maxlength="30"
+            <input matInput placeholder="Tratamiento" required minlength="3" maxlength="30"
               formControlName="treatment">
           </mat-form-field>
 
           <div class="button-row">
-            <button mat-fab color="primary" style="float: right;" (click)="action()">
+            <button mat-fab color="primary" [disabled]="formConsultDetail.invalid" style="float: right;" (click)="action()">
               <mat-icon>save</mat-icon>
             </button>
 

@@ -1,5 +1,4 @@
 import { ExamService } from './../../../service/exam.service';
-import { ConsultExam } from './../../../model/ConsultExam';
 import { DialogConsultExamComponent } from './dialog-consult-exam/dialog-consult-exam.component';
 import { ConsultDetailService } from './../../../service/consult-detail.service';
 import { DialogConsultDetailComponent } from './dialog-consult-detail/dialog-consult-detail.component';
@@ -49,8 +48,6 @@ export class ConsultDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((param: Params) => {
       this.idExam = param.id;
-      // console.log(this.idExam);
-
       this.consultDetailService.reactVar.subscribe(data => {
         if (data === 'save') {
           this.showMessage('Detalle de la Consulta Guardada con éxito', 'Guardar');
@@ -120,7 +117,7 @@ export class ConsultDetailComponent implements OnInit {
     this.dataSourceConsultDetail.filter = filterValue.trim().toLowerCase();
   }
 
-  openDiaogEditConsult(obj?: ConsultDetail) {
+  openDiaogConsult(obj?: ConsultDetail) {
     const consultDetail = obj != null ? obj : new ConsultDetail();
     this.dialog.open(DialogConsultDetailComponent, {
       width: '40%',
@@ -128,7 +125,7 @@ export class ConsultDetailComponent implements OnInit {
     });
   }
 
-  openDialogEditExam(obj?: ExamReportDtos) {
+  openDialogExam(obj?: ExamReportDtos) {
     const exam = obj != null ? obj : new ExamReportDtos();
     this.dialog.open(DialogConsultExamComponent, {
       width: '40%',

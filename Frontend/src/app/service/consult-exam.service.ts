@@ -20,4 +20,12 @@ export class ConsultExamService {
   edit(consultExam: ConsultExam) {
     return this.http.put(`${this.url}/edit`, consultExam);
   }
+
+  save() {
+
+  }
+
+  saveConsult() {
+
+  }
 }

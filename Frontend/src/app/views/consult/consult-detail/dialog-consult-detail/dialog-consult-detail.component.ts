@@ -1,3 +1,4 @@
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConsultDetailService } from './../../../../service/consult-detail.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,22 +14,49 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class DialogConsultDetailComponent implements OnInit {
 
   consultDetail: ConsultDetail;
+  formConsultDetail: FormGroup;
+  isSaving = true;
 
-  formConsultDetailEdit: FormGroup;
+  path: string;
+  idConsult: number;
+  regex = /(\d+)/g;
+
+  private readonly newProperty = this.idConsult;
 
   constructor(
     private dialogRef: MatDialogRef<DialogConsultDetailComponent>,
     private consultDetailServ: ConsultDetailService,
     private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) private dataConsultDetail: ConsultDetail
+    @Inject(MAT_DIALOG_DATA) private dataConsultDetail: ConsultDetail,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.edit();
+
+    this.path = this.router.url;
+    const id = this.path.match(this.regex);
+    id.forEach(element => {
+      this.idConsult = Number(element);
+    });
+
+    if (Object.entries(this.dataConsultDetail).length === 0) {
+      this.save();
+    } else {
+      this.isSaving = false;
+      this.edit();
+    }
+  }
+
+  save() {
+    this.formConsultDetail = new FormGroup({
+      id: new FormControl(''),
+      diagnosis: new FormControl(''),
+      treatment: new FormControl('')
+    });
   }
 
   edit() {
-    this.formConsultDetailEdit = new FormGroup({
+    this.formConsultDetail = new FormGroup({
       id: new FormControl(this.dataConsultDetail.id),
       diagnosis: new FormControl(this.dataConsultDetail.diagnosis),
       treatment: new FormControl(this.dataConsultDetail.treatment)
@@ -37,14 +65,32 @@ export class DialogConsultDetailComponent implements OnInit {
 
   action() {
     this.consultDetail = new ConsultDetail();
-    this.consultDetail.id = this.formConsultDetailEdit.value.id;
-    this.consultDetail.diagnosis = this.formConsultDetailEdit.value.diagnosis;
-    this.consultDetail.treatment = this.formConsultDetailEdit.value.treatment;
+    this.consultDetail.diagnosis = this.formConsultDetail.value.diagnosis;
+    this.consultDetail.treatment = this.formConsultDetail.value.treatment;
+    if (this.isSaving) {
+      const dataForm = {
+        diagnosis: this.formConsultDetail.value.diagnosis,
+        treatment: this.formConsultDetail.value.treatment,
+        consult: {
+          id: this.idConsult
+        }
+      };
 
-    this.consultDetailServ.edit(this.consultDetail).subscribe(() => {
-      this.closeDialog();
-      this.consultDetailServ.reactVar.next('edit');
-    });
+      const json = JSON.stringify(dataForm);
+      const dataDB = JSON.parse(json);
+      console.log(dataDB);
+
+      this.consultDetailServ.save(dataDB).subscribe(() => {
+        this.closeDialog();
+        this.consultDetailServ.reactVar.next('save');
+      });
+    } else {
+      this.consultDetail.id = this.formConsultDetail.value.id;
+      this.consultDetailServ.edit(this.consultDetail).subscribe(() => {
+        this.closeDialog();
+        this.consultDetailServ.reactVar.next('edit');
+      });
+    }
   }
 
   closeDialog() {

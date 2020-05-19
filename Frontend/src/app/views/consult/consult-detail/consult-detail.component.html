@@ -31,7 +31,7 @@
             <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="diagnosis">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnostico </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnóstico </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.diagnosis }}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="treatment">
@@ -41,7 +41,7 @@
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-button (click)="openDiaogEditConsult(row)">
+              <button mat-button (click)="openDiaogConsult(row)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button color="warn">
@@ -56,7 +56,7 @@
 
         <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-        <button mat-fab color="primary" style="float: right;">
+        <button mat-fab color="primary" style="float: right;" (click)="openDiaogConsult()">
           <mat-icon>add</mat-icon>
         </button>
 
@@ -89,7 +89,7 @@
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-button (click)="openDialogEditExam(row)">
+              <button mat-button (click)="openDialogExam(row)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button color="warn">
@@ -104,9 +104,9 @@
 
         <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-        <button mat-fab color="primary" style="float: right;">
+        <!-- <button mat-fab color="primary" style="float: right;">
           <mat-icon>add</mat-icon>
-        </button>
+        </button> -->
 
       </mat-card-content>
     </mat-card>
