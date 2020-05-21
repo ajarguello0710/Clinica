@@ -27,6 +27,10 @@ export class ConsultService {
     return this.http.get<Consult[]>(`${this.url}/gets/false`);
   }
 
+  listPage(page: number, size: number) {
+    return this.http.get<any>(`${this.url}/getsPage/false?page=${page}&size=${size}`);
+  }
+
   edit(consult: Consult) {
     return this.http.put(`${this.url}/edit`, consult);
   }

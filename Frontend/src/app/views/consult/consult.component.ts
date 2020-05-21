@@ -16,6 +16,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ConsultComponent implements OnInit {
 
+  totalElements = 0;
+
   displayedColumns: string[] = ['id', 'name', 'date', 'doctor', 'acciones'];
   dataSource = new MatTableDataSource<Consult>();
 
@@ -42,28 +44,33 @@ export class ConsultComponent implements OnInit {
       } else {
         this.showMessage('No se puede agregar el paciente y doctor', 'Error');
       }
-      this.list();
+      this.list(0 , 10);
     });
-    this.list();
+    this.list(0, 10);
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  list() {
-    this.consultServ.list().subscribe(dataConsultServ => {
-      // console.log(dataConsultServ);
-
+  list(page: number, size: number) {
+    this.consultServ.listPage(page, size).subscribe(dataConsultServ => {
+      console.log(dataConsultServ);
+      this.totalElements = dataConsultServ.totalElements;
       this.mPaginator._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginator._intl.nextPageLabel = 'Página siguiente';
       this.mPaginator._intl.previousPageLabel = 'Página anterior';
       this.mPaginator._intl.firstPageLabel = 'Primera Página';
       this.mPaginator._intl.lastPageLabel = 'Ultima Página';
-      this.dataSource = new MatTableDataSource(dataConsultServ);
+      this.dataSource = new MatTableDataSource(dataConsultServ.content);
       this.dataSource.sort = this.mSort;
-      this.dataSource.paginator = this.mPaginator;
+      // this.dataSource.paginator = this.mPaginator;
     });
+  }
+
+  changePage(e: any) {
+    console.log(e);
+    this.list(e.pageIndex, e.pageSize);
   }
 
   openDialogEdit(obj?: Consult) {

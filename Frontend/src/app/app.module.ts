@@ -32,6 +32,8 @@ import { DialogDetailConsultSaveComponent } from './views/consult/consult-detail
 import { DialogExamConsultEditComponent } from './views/consult/consult-detail-save/dialog-exam-consult-edit/dialog-exam-consult-edit.component';
 // tslint:disable-next-line: max-line-length
 import { DialogDetailConsultEditComponent } from './views/consult/consult-detail-save/dialog-detail-consult-edit/dialog-detail-consult-edit.component';
+import { DialogDoctorComponent } from './views/doctor/dialog-doctor/dialog-doctor.component';
+import { DialogPatientComponent } from './views/patient/dialog-patient/dialog-patient.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { DialogDetailConsultEditComponent } from './views/consult/consult-detail
     DialogDetailConsultSaveComponent,
     DialogExamConsultEditComponent,
     DialogDetailConsultEditComponent,
+    DialogDoctorComponent,
+    DialogPatientComponent,
   ], entryComponents: [
     DialogConsultComponent,
     DialogConsultDetailComponent,
@@ -60,7 +64,9 @@ import { DialogDetailConsultEditComponent } from './views/consult/consult-detail
     DialogExamConsultSaveComponent,
     DialogDetailConsultSaveComponent,
     DialogExamConsultEditComponent,
-    DialogDetailConsultEditComponent
+    DialogDetailConsultEditComponent,
+    DialogDoctorComponent,
+    DialogPatientComponent
   ],
   imports: [
     BrowserModule,

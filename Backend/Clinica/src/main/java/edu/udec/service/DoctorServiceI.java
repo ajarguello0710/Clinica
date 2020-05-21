@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import edu.udec.dto.ConsultListDto;
 import edu.udec.dto.DoctorDto;
 import edu.udec.entity.Doctor;
 import edu.udec.entity.Specialty;
@@ -35,6 +39,8 @@ public class DoctorServiceI implements IDoctorService{
 	public DoctorDto getId(Integer id) {
 		return convertEntity(repository.findById(id).orElseThrow(() -> new NotFoundModelException("Doctor no encontrado.")));
 	}
+	
+	
 
 	@Override
 	public DoctorDto save(DoctorDto objectSave) {
@@ -115,5 +121,18 @@ public class DoctorServiceI implements IDoctorService{
 	public DoctorDto convertEntity(Doctor Doctor) {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(Doctor, DoctorDto.class);
+	}
+
+	@Override
+	public Page<DoctorDto> listPagingated(Pageable pageable) {
+		
+		List<DoctorDto> consultPage = covertListEntity(repository.findAll());
+		Page<DoctorDto> page = new PageImpl<DoctorDto>(consultPage);
+		
+		for (DoctorDto doctorDto : page.getContent()) {
+			doctorDto.setConsults(new ArrayList<>());
+		}
+		
+		return page;
 	}
 }

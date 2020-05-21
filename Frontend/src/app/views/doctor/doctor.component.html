@@ -6,6 +6,64 @@
         <mat-card-title>Doctores</mat-card-title>
         <mat-card-subtitle>Aquí se cargaran todos los doctores de la Clinica.</mat-card-subtitle>
 
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Doctor">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.lastName }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dateBirth">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Nacimiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.dateBirth }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div *ngIf="element.state; else elseBlock">
+                <span class="bg-enable text-white rounded font-12 pl-5 pr-5">&nbsp;Habilitado&nbsp;</span>
+              </div>
+              <ng-template #elseBlock>
+                <span class="bg-danger text-white rounded font-12 pl-5 pr-5">Deshabilitado</span>
+              </ng-template>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button matTooltip="Ver Especialidad" matTooltipPosition="before" >
+                <mat-icon>add_location</mat-icon>
+              </button>
+              <button mat-button (click)="openDiaogDoctor(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalElements"
+          (page)="changePage($event)"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;" (click)="openDiaogDoctor()">
+          <mat-icon>add</mat-icon>
+        </button>
 
       </mat-card-content>
     </mat-card>

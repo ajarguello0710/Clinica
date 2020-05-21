@@ -5,8 +5,9 @@ export class Patient {
   id: number;
   name: string;
   lastName: string;
-  addres: Address;
+  address: Address;
   dateBirth: DatePipe;
   mail: string;
+  state: boolean;
   // consults: Consult;
 }

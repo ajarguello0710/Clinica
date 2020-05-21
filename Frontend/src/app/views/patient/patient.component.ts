@@ -1,3 +1,6 @@
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogPatientComponent } from './dialog-patient/dialog-patient.component';
 import { Patient } from './../../model/Patients';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +15,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class PatientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'lastName', 'dateBirth', 'acciones'];
+  displayedColumns: string[] = ['id', 'name', 'lastName', 'dateBirth', 'state', 'acciones'];
   dataSource = new MatTableDataSource<Patient>();
 
   @ViewChild(MatSort, { static: true }) mSort: MatSort;
@@ -22,9 +25,25 @@ export class PatientComponent implements OnInit {
 
   totalElements = 0;
 
-  constructor(private patientServ: PatientService) { }
+  constructor(
+    private patientServ: PatientService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
+    this.patientServ.reactVar.subscribe(data => {
+      if (data === 'save') {
+        this.showMessage('Paciente Guardado con éxito', 'Guardar');
+      } else if (data === 'edit') {
+        this.showMessage('Paciente Editado con éxito', 'Editar');
+      } else if (data === 'delete') {
+        this.showMessage('Paciente Eliminado con éxito', 'Eliminar');
+      } else {
+        this.showMessage('No se puede agregar el paciente y doctor', 'Error');
+      }
+      this.listPatient(0, 10);
+    });
     this.listPatient(0, 10);
   }
 
@@ -50,6 +69,20 @@ export class PatientComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDiaogPatient(obj?: Patient) {
+    const patient = obj != null ? obj : new Patient();
+    this.dialog.open(DialogPatientComponent, {
+      width: '40%',
+      data: patient
+    });
+  }
+
+  showMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

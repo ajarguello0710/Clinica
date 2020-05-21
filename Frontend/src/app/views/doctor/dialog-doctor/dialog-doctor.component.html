@@ -1,1 +1,77 @@
-<p>dialog-doctor works!</p>
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+
+        <diV [hidden]="!isSaving">
+          <mat-card-title>Doctor &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+          </mat-card-title>
+        </diV>
+        <diV [hidden]="isSaving">
+          <mat-card-title>Doctor &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+          </mat-card-title>
+        </diV>
+
+        <form class="" [formGroup]="formDoctor">
+
+          <div [hidden]="true">
+            <mat-form-field>
+              <input matInput placeholder="Id" formControlName="id">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Nombre" required minlength="3" maxlength="30"
+              formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Apellido" required minlength="3" maxlength="30"
+              formControlName="lastName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Dirección" required minlength="3" maxlength="30"
+              formControlName="address">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Barrio" required minlength="3" maxlength="30"
+              formControlName="neighborhood">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" required formControlName="birthDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Correo" type="email" required minlength="3" maxlength="30"
+              formControlName="mail">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Estado" required minlength="3" maxlength="30"
+              formControlName="state">
+          </mat-form-field>
+
+          <div class="button-row">
+            <button mat-fab color="primary" style="float: right;" (click)="action()">
+              <mat-icon>save</mat-icon>
+            </button>
+
+            <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

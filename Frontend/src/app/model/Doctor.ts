@@ -7,7 +7,8 @@ export class Doctor {
   name: string;
   lastName: string;
   dateBirth: DatePipe;
-  addres: Address;
+  address: Address;
   state: boolean;
+  mail: string;
   specialties: Specialty;
 }
