@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(name = "consult")
 public class Consult {
 
 	@Id

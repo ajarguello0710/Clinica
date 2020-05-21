@@ -204,7 +204,7 @@ public class ConsultServiceI implements IConsultService {
 	@Override
 	public Page<Consult> getConsultsForDoctor(String nameDoctor, Pageable pageable) {
 		
-		Page<Consult> page = repositoryConsult.listarPorNombreDoctor(nameDoctor, pageable);
+		Page<Consult> page = repositoryConsult.findByDoctor_NameIgnoreCaseContaining(nameDoctor, pageable);
 		for (Consult consult : page.getContent()) {
 			consult.setConsultDetails(new ArrayList<>());
 		}

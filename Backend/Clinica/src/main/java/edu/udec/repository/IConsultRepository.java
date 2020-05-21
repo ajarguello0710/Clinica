@@ -20,10 +20,12 @@ public interface IConsultRepository extends JpaRepository<Consult, Integer> {
 	
 	Page<Consult> findByName(String name, Pageable pageable);
 	
-	@Query(value = "SELECT consult "
-			+ "FROM consult JOIN doctor ON consult.fk_id_doctor = doctor.id"
-			+ "WHERE doctor.name LIKE :nameDoctor", nativeQuery = true)
-	public Page<Consult> listarPorNombreDoctor(@Param("nameDoctor") String nameDoctor, Pageable pageable);
+	public Page<Consult> findByDoctor_NameIgnoreCaseContaining(String name, Pageable pageable); 
+	
+//	@Query(value = "SELECT consult "
+//			+ "FROM consult JOIN doctor ON consult.fk_id_doctor = doctor.id"
+//			+ "WHERE doctor.name LIKE :nameDoctor", nativeQuery = true)
+//	public Page<Consult> listarPorNombreDoctor(@Param("nameDoctor") String nameDoctor, Pageable pageable);
 	
 //	@Query("SELECT c FROM Consult JOIN c.doctor d ON c.doctor.id = d.id WHERE c.doctor.nombre LIKE :name"+"%")
 //	public Page<Consult> findNameDoctor(@Param("name") String name, Pageable pageable);
