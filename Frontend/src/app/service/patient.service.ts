@@ -15,4 +15,8 @@ export class PatientService {
   list() {
     return this.http.get<Patient[]>(`${this.url}/get`);
   }
+
+  listPaginated(page: number, size: number) {
+    return this.http.get<any>(`${this.url}/getPageable?page=${page}&size=${size}`);
+  }
 }

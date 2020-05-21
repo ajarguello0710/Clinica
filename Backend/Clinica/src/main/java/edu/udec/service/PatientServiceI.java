@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import edu.udec.dto.PatientDto;
@@ -23,6 +26,16 @@ public class PatientServiceI implements IPatientService {
 	@Override
 	public List<PatientDto> get() {
 		return covertListEntity(repository.findAll());
+	}
+	
+	@Override
+	public Page<Patient> listPageable(Pageable pageable) { 
+		pageable.getSortOr(Sort.by("id").descending());
+		Page<Patient> page = repository.findAll(pageable);
+		for (Patient patient : page.getContent()) {
+			patient.setConsults(new ArrayList<>());
+		}
+		return page;
 	}
 
 	@Override
@@ -96,4 +109,5 @@ public class PatientServiceI implements IPatientService {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(Patient, PatientDto.class);
 	}
+
 }

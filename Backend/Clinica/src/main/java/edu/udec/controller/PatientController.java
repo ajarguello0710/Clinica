@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.udec.dto.PatientDto;
+import edu.udec.entity.Patient;
 import edu.udec.service.interfaces.IPatientService;
 
 @RestController
@@ -32,6 +35,12 @@ public class PatientController {
 	public ResponseEntity<List<PatientDto>> get(){
 		List<PatientDto> patients = service.get();
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getPageable")
+	public ResponseEntity<Page<Patient>> getPageable(Pageable pageable){
+		Page<Patient> patients = service.listPageable(pageable);
+		return new ResponseEntity<Page<Patient>>(patients, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getId/{id}")

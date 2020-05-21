@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import edu.udec.entity.ConsultDetail;
 import edu.udec.entity.Doctor;
-import edu.udec.entity.Patient;
 
 public class ConsultListDto {
 

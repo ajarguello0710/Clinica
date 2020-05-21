@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.udec.dto.ConsultDto;
 import edu.udec.dto.ConsultListDto;
 import edu.udec.dto.FullConsult;
+import edu.udec.entity.Consult;
 import edu.udec.service.interfaces.IConsultService;
 
 @RestController
@@ -40,6 +43,18 @@ public class ConsultController {
 	public ResponseEntity<List<ConsultListDto>> get(@PathVariable boolean detail){
 		List<ConsultListDto> consultListDto = service.getConsults(detail);
 		return new ResponseEntity<List<ConsultListDto>>(consultListDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getsPage/{detail}")
+	public ResponseEntity<Page<ConsultListDto>> getPage(@PathVariable boolean detail, Pageable pageable){
+		Page<ConsultListDto> consults = service.getConsultsPageable(detail, pageable);
+		return new ResponseEntity<Page<ConsultListDto>>(consults, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getsPageName/{name}")
+	public ResponseEntity<Page<Consult>> getPage(@PathVariable String name,Pageable pageable){
+		Page<Consult> consults = service.getConsultsForDoctor(name, pageable);
+		return new ResponseEntity<Page<Consult>>(consults, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getId/{id}")

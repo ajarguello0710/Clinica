@@ -7,7 +7,7 @@
         <mat-card-subtitle>Aquí se cargaran todos los pacientes de la Clinica.</mat-card-subtitle>
 
         <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Autor">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Paciente">
         </mat-form-field>
 
         <mat-table [dataSource]="dataSource" matSort>
@@ -47,7 +47,7 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalElements" (page)="changePage($event)"></mat-paginator>
 
         <button mat-fab color="primary" style="float: right;" >
           <mat-icon>create</mat-icon>

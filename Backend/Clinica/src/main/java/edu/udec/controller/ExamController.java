@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.udec.dto.ExamDto;
-import edu.udec.entity.Exam;
 import edu.udec.service.interfaces.IExamService;
 
 @RestController

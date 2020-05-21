@@ -14,5 +14,8 @@ public interface IPatientRepository extends JpaRepository<Patient, Integer> {
 	
 	@Query("SELECT p.id, p.name, p.lastName FROM Patient p")
 	public List<Consult> getPatients();
+	
+//	@Query(value = "SELECT * FROM patient", nativeQuery = true)
+//	public Page<Patient> getPatientPage();
 
 }

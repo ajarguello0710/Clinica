@@ -1,4 +1,4 @@
-http://localhost:8080/address/get/
+﻿http://localhost:8080/address/get/
 http://localhost:8080/address/getId/1
 http://localhost:8080/address/save
 {
@@ -96,6 +96,10 @@ http://localhost:8080/doctor/edit
 http://localhost:8080/doctor/delete/2
 
 http://localhost:8080/consultDetail/get/
+
+http://localhost:8080/consult/gets/false
+http://localhost:8080/consult/gets/true
+
 http://localhost:8080/consultDetail/getId/1
 http://localhost:8080/consultDetail/save
 {
