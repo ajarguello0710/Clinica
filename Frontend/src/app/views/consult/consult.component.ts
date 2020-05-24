@@ -16,6 +16,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ConsultComponent implements OnInit {
 
+  showProgressBar = true;
+
   totalElements = 0;
 
   displayedColumns: string[] = ['id', 'name', 'date', 'doctor', 'acciones'];
@@ -66,6 +68,7 @@ export class ConsultComponent implements OnInit {
       this.dataSource.sort = this.mSort;
       // this.dataSource.paginator = this.mPaginator;
     });
+    this.showProgressBar = false;
   }
 
   changePage(e: any) {

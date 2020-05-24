@@ -27,6 +27,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 
 @NgModule({
@@ -55,7 +58,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule,
+    MatTooltipModule
   ], exports: [
     MatButtonModule,
     MatIconModule,
@@ -78,7 +83,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDialogModule,
     MatDatepickerModule,
     MatChipsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule,
+    MatTooltipModule
   ]
 })
 export class ApiReferenceModule { }

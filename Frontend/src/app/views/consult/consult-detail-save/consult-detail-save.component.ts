@@ -15,6 +15,7 @@ import { DoctorService } from './../../../service/doctor.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/model/Exam';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-consult-detail-save',
@@ -36,6 +37,9 @@ export class ConsultDetailSaveComponent implements OnInit {
 
   examAI = 0;
   detailAI = 0;
+
+  dateSelected: Date;
+  dateNow: Date = new Date();
 
   formConsultSave: FormGroup;
 
@@ -111,23 +115,31 @@ export class ConsultDetailSaveComponent implements OnInit {
         this.showMessage('Por favor, Agregar un exámen a la consulta', 'Error');
       }
     } else {
-      this.consultSave = new ConsultSave();
-      this.consultSave.name = this.formConsultSave.value.name;
-      this.consultSave.date = this.formConsultSave.value.date;
-      this.consultSave.doctor = this.formConsultSave.value.doctor;
-      this.consultSave.patient = this.formConsultSave.value.patient;
-      // this.consultSave.consultDetailDtos = new Consult();
+      // console.log(this.dateNow.getDate);
+      this.dateSelected = this.formConsultSave.value.date;
+      // console.log(this.dateSelected.getDate());
+      if (this.dateSelected.getDate() < this.dateNow.getDate()) {
+        this.showMessage('Por favor, Seleccionar una fecha válida', 'Error');
+      } else {
+        this.consultSave = new ConsultSave();
+        this.consultSave.name = this.formConsultSave.value.name;
+        this.consultSave.date = this.formConsultSave.value.date;
+        this.consultSave.doctor = this.formConsultSave.value.doctor;
+        this.consultSave.patient = this.formConsultSave.value.patient;
+        // this.consultSave.consultDetailDtos = new Consult();
 
-      this.consultSave.consultDetailDtos = this.details;
+        this.consultSave.consultDetailDtos = this.details;
 
-      this.consultSave.exams = this.exams;
+        this.consultSave.exams = this.exams;
+
+        this.consultServ.save(this.consultSave).subscribe(() => {
+          this.showMessage('Consulta Guarda con éxito', 'Guardar');
+          this.consultServ.reactVar.next('saveFull');
+          this.router.navigate(['/consult']);
+        });
+      }
     }
-    console.log(this.consultSave);
-    this.consultServ.save(this.consultSave).subscribe(() => {
-      this.showMessage('Consulta Guarda con éxito', 'Guardar');
-      this.consultServ.reactVar.next('saveFull');
-      this.router.navigate(['/consult']);
-    });
+
   }
 
   listDetailSave(obj: ConsultDetail) {

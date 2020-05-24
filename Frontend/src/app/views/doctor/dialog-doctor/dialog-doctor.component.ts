@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Address } from './../../../model/Address';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Doctor } from './../../../model/Doctor';
@@ -18,10 +19,14 @@ export class DialogDoctorComponent implements OnInit {
   isSaving = true;
   formDoctor: FormGroup;
 
+  dateSelected: Date;
+  dateNow: Date = new Date();
+
   constructor(
     private dialogRef: MatDialogRef<DialogDoctorComponent>,
     private doctorServ: DoctorService,
     private router: ActivatedRoute,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private dataDoctor: Doctor
   ) { }
 
@@ -62,39 +67,50 @@ export class DialogDoctorComponent implements OnInit {
   }
 
   action() {
-    this.doctor = new Doctor();
-    this.address = new Address();
-    this.doctor.name = this.formDoctor.value.name;
-    this.doctor.lastName = this.formDoctor.value.lastName;
-    this.doctor.dateBirth = this.formDoctor.value.birthDate;
-    this.address.address = this.formDoctor.value.address;
-    this.address.neighborhood = this.formDoctor.value.neighborhood;
-    this.doctor.mail = this.formDoctor.value.mail;
-    this.doctor.state = this.formDoctor.value.state;
-
-    this.doctor.address = this.address;
-    // console.log(this.doctor);
-    // console.log(this.address);
-    if (this.isSaving) {
-
-      console.log(this.doctor);
-      this.doctorServ.save(this.doctor).subscribe(() => {
-        this.closeDialog();
-        this.doctorServ.reactVar.next('save');
-      });
+    this.dateSelected = this.formDoctor.value.birthDate;
+    if (this.dateSelected.getDate() > this.dateNow.getDate()) {
+      this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
     } else {
-      this.doctor.id = this.formDoctor.value.id;
+      this.doctor = new Doctor();
+      this.address = new Address();
+      this.doctor.name = this.formDoctor.value.name;
+      this.doctor.lastName = this.formDoctor.value.lastName;
+      this.doctor.dateBirth = this.formDoctor.value.birthDate;
+      this.address.address = this.formDoctor.value.address;
+      this.address.neighborhood = this.formDoctor.value.neighborhood;
+      this.doctor.mail = this.formDoctor.value.mail;
+      this.doctor.state = this.formDoctor.value.state;
 
-      console.log(this.doctor);
-      this.doctorServ.edit(this.doctor).subscribe(() => {
-        this.closeDialog();
-        this.doctorServ.reactVar.next('edit');
-      });
+      this.doctor.address = this.address;
+      // console.log(this.doctor);
+      // console.log(this.address);
+      if (this.isSaving) {
+
+        console.log(this.doctor);
+        this.doctorServ.save(this.doctor).subscribe(() => {
+          this.closeDialog();
+          this.doctorServ.reactVar.next('save');
+        });
+      } else {
+        this.doctor.id = this.formDoctor.value.id;
+
+        console.log(this.doctor);
+        this.doctorServ.edit(this.doctor).subscribe(() => {
+          this.closeDialog();
+          this.doctorServ.reactVar.next('edit');
+        });
+      }
     }
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  showMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Address } from './../../../model/Address';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Patient } from './../../../model/Patients';
@@ -18,10 +19,14 @@ export class DialogPatientComponent implements OnInit {
   isSaving = true;
   formPatient: FormGroup;
 
+  dateSelected: Date;
+  dateNow: Date = new Date();
+
   constructor(
     private dialogRef: MatDialogRef<DialogPatientComponent>,
     private patientServ: PatientService,
     private router: ActivatedRoute,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private dataPatient: Patient
   ) { }
 
@@ -62,37 +67,48 @@ export class DialogPatientComponent implements OnInit {
   }
 
   action() {
-    this.patient = new Patient();
-    this.address = new Address();
-    this.patient.name = this.formPatient.value.name;
-    this.patient.lastName = this.formPatient.value.lastName;
-    this.patient.dateBirth = this.formPatient.value.dateBirth;
-    this.patient.mail = this.formPatient.value.mail;
-    this.patient.state = this.formPatient.value.state;
-    this.address.address = this.formPatient.value.address;
-    this.address.neighborhood = this.formPatient.value.neighborhood;
-
-    this.patient.address = this.address;
-
-    if (this.isSaving) {
-      console.log(this.patient);
-      this.patientServ.save(this.patient).subscribe(() => {
-        this.closeDialog();
-        this.patientServ.reactVar.next('save');
-      });
+    this.dateSelected = this.formPatient.value.dateBirth;
+    if (this.dateSelected.getDate() > this.dateNow.getDate()) {
+      this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
     } else {
-      this.patient.id = this.formPatient.value.id;
+      this.patient = new Patient();
+      this.address = new Address();
+      this.patient.name = this.formPatient.value.name;
+      this.patient.lastName = this.formPatient.value.lastName;
+      this.patient.dateBirth = this.formPatient.value.dateBirth;
+      this.patient.mail = this.formPatient.value.mail;
+      this.patient.state = this.formPatient.value.state;
+      this.address.address = this.formPatient.value.address;
+      this.address.neighborhood = this.formPatient.value.neighborhood;
 
-      console.log(this.patient);
-      this.patientServ.edit(this.patient).subscribe(() => {
-        this.closeDialog();
-        this.patientServ.reactVar.next('edit');
-      });
+      this.patient.address = this.address;
+
+      if (this.isSaving) {
+        console.log(this.patient);
+        this.patientServ.save(this.patient).subscribe(() => {
+          this.closeDialog();
+          this.patientServ.reactVar.next('save');
+        });
+      } else {
+        this.patient.id = this.formPatient.value.id;
+
+        console.log(this.patient);
+        this.patientServ.edit(this.patient).subscribe(() => {
+          this.closeDialog();
+          this.patientServ.reactVar.next('edit');
+        });
+      }
     }
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  showMessage(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }
