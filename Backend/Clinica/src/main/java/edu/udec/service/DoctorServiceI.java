@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import edu.udec.dto.ConsultListDto;
 import edu.udec.dto.DoctorDto;
 import edu.udec.entity.Doctor;
 import edu.udec.entity.Specialty;
