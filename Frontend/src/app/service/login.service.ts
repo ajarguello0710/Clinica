@@ -24,18 +24,18 @@ export class LoginService {
     });
   }
 
-  // logout() {
-  //   const token = sessionStorage.getItem(environment.TOKEN_NAME);
+  logout() {
+    const token = sessionStorage.getItem(environment.TOKEN_NAME);
 
-  //   this.http.get(`${environment.HOST}/cerrarSesion/anular/${token}`).subscribe(() => {
-  //     sessionStorage.clear();
-  //     this.router.navigate([`/inicio`]);
-  //   });
-  // }
+    this.http.get(`${environment.HOST}/cerrarSesion/anular/${token}`).subscribe(() => {
+      sessionStorage.clear();
+      this.router.navigate([`/login`]);
+    });
+  }
 
-  // isLogin() {
-  //   const token = sessionStorage.getItem(environment.TOKEN_NAME);
-  //   return token != null;
-  // }
+  logged() {
+    const token = sessionStorage.getItem(environment.TOKEN_NAME);
+    return token != null;
+  }
 
 }

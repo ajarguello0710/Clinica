@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { ServerErrorInterceptorService } from './shared/server-error-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -36,6 +37,16 @@ import { DialogDoctorComponent } from './views/doctor/dialog-doctor/dialog-docto
 import { DialogPatientComponent } from './views/patient/dialog-patient/dialog-patient.component';
 import { LoginComponent } from './views/login/login.component';
 
+import { JwtModule } from '@auth0/angular-jwt';
+import { Not401Component } from './views/not401/not401.component';
+import { InicioComponent } from './views/inicio/inicio.component';
+
+
+export function tokenGetter() {
+  return sessionStorage.getItem(environment.TOKEN_NAME);
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +70,8 @@ import { LoginComponent } from './views/login/login.component';
     DialogDoctorComponent,
     DialogPatientComponent,
     LoginComponent,
+    Not401Component,
+    InicioComponent,
   ], entryComponents: [
     DialogConsultComponent,
     DialogConsultDetailComponent,
@@ -77,7 +90,20 @@ import { LoginComponent } from './views/login/login.component';
     ApiReferenceModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: [
+          'localhost:8080',
+          // ''
+        ],
+        blacklistedRoutes: [
+          'http://localhost:8080/login',
+          // ''
+        ]
+      }
+    })
   ],
   providers: [
     {

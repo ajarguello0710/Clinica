@@ -35,7 +35,7 @@ export class ServerErrorInterceptorService implements HttpInterceptor {
           this.snackBar.open(err.error.message, 'ERROR', { duration: 5000 });
         } else if (err.status === 401) {
           this.snackBar.open(err.message, 'ERROR 401', { duration: 5000 });
-          this.router.navigate(['/#']);
+          this.router.navigate(['/inicio']);
         } else if (err.status === 500) {
           // this.snackBar.open(err.error.mensaje, 'ERROR 500', { duration: 5000 });
           this.router.navigate([`/error/${err.status}/Lo sentimos`]);
