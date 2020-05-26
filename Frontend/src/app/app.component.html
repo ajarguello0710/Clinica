@@ -1,52 +1,53 @@
 <div class="example-container">
-  <mat-toolbar color="primary" class="topbar telative">
-
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
-      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
-    </button>
-
-    <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">
-        <!-- Logo icon --><b>
-          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-          <!-- Dark Logo icon -->
-          <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo"> -->
-          <!-- Light Logo icon -->
-          <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo">
-        </b>
-        <!--End Logo icon -->
-        <!-- Logo text -->
-        <span fxShow="false" fxShow.gt-xs>
-          <!-- dark Logo text -->
-          <img src="assets/images/logo-text.png" alt="homepage" class="light-logo">
-          <!-- Light Logo text -->
-          <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
-        </span> </a>
-    </div>
-
-    <!-- <span>{{ title }}</span> -->
-    <span class="example-spacer"></span>
-    <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon> -->
-    <button mat-icon-button [mat-menu-trigger-for]="menu" mat-icon-button class="m-r-5">
-      <img src="assets/images/users/d1.jpg" alt="user" class="profile-pic">
-    </button>
-    <mat-menu x-position="before" #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon> Configuración
+  <!-- <div [hidden]="isValid"> -->
+    <mat-toolbar color="primary" class="topbar telative">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+        <mat-icon *ngIf="sidenav.opened">close</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>account_box</mat-icon> Perfil
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon> Deshabilitar Notificaciones
-      </button>
-      <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon> Cerar Sesión
-      </button>
-    </mat-menu>
 
-  </mat-toolbar>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">
+          <!-- Logo icon --><b>
+            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+            <!-- Dark Logo icon -->
+            <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo"> -->
+            <!-- Light Logo icon -->
+            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo">
+          </b>
+          <!--End Logo icon -->
+          <!-- Logo text -->
+          <span fxShow="false" fxShow.gt-xs>
+            <!-- dark Logo text -->
+            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo">
+            <!-- Light Logo text -->
+            <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
+          </span> </a>
+      </div>
+
+      <!-- <span>{{ title }}</span> -->
+      <span class="example-spacer"></span>
+      <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon> -->
+      <button mat-icon-button [mat-menu-trigger-for]="menu" mat-icon-button class="m-r-5">
+        <img src="assets/images/users/d1.jpg" alt="user" class="profile-pic">
+      </button>
+      <mat-menu x-position="before" #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon> Configuración
+        </button>
+        <button mat-menu-item>
+          <mat-icon>account_box</mat-icon> Perfil
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon> Deshabilitar Notificaciones
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon> Cerar Sesión
+        </button>
+      </mat-menu>
+
+    </mat-toolbar>
+  <!-- </div> -->
 
   <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #sidenav style="width: 200px;"

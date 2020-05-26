@@ -53,7 +53,7 @@ export class DialogPatientComponent implements OnInit {
   }
 
   edit() {
-    console.log(this.dataPatient);
+    // console.log(this.dataPatient);
     this.formPatient = new FormGroup({
       id: new FormControl(this.dataPatient.id),
       name: new FormControl(this.dataPatient.name),
@@ -84,7 +84,7 @@ export class DialogPatientComponent implements OnInit {
       this.patient.address = this.address;
 
       if (this.isSaving) {
-        console.log(this.patient);
+        // console.log(this.patient);
         this.patientServ.save(this.patient).subscribe(() => {
           this.closeDialog();
           this.patientServ.reactVar.next('save');
@@ -92,7 +92,7 @@ export class DialogPatientComponent implements OnInit {
       } else {
         this.patient.id = this.formPatient.value.id;
 
-        console.log(this.patient);
+        // console.log(this.patient);
         this.patientServ.edit(this.patient).subscribe(() => {
           this.closeDialog();
           this.patientServ.reactVar.next('edit');

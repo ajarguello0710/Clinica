@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
@@ -9,6 +10,8 @@ import { Injectable } from '@angular/core';
 export class LoginService {
 
   url = `${environment.HOST}/oauth/token`;
+
+  // reactToolbar = new Subject<boolean>();
 
   constructor(
     private http: HttpClient,
@@ -27,7 +30,7 @@ export class LoginService {
   logout() {
     const token = sessionStorage.getItem(environment.TOKEN_NAME);
 
-    this.http.get(`${environment.HOST}/cerrarSesion/anular/${token}`).subscribe(() => {
+    this.http.get(`${environment.HOST}/logout/cancel/${token}`).subscribe(() => {
       sessionStorage.clear();
       this.router.navigate([`/login`]);
     });

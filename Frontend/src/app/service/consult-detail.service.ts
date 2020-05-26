@@ -20,7 +20,7 @@ export class ConsultDetailService {
   }
 
   save(consultDetail: ConsultDetail) {
-    console.log(consultDetail);
+    // console.log(consultDetail);
     return this.http.post(`${this.url}/save`, consultDetail);
   }
 }

@@ -78,7 +78,7 @@ export class DialogConsultDetailComponent implements OnInit {
 
       const json = JSON.stringify(dataForm);
       const dataDB = JSON.parse(json);
-      console.log(dataDB);
+      // console.log(dataDB);
 
       this.consultDetailServ.save(dataDB).subscribe(() => {
         this.closeDialog();

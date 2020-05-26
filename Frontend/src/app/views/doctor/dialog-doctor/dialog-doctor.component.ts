@@ -86,7 +86,7 @@ export class DialogDoctorComponent implements OnInit {
       // console.log(this.address);
       if (this.isSaving) {
 
-        console.log(this.doctor);
+        // console.log(this.doctor);
         this.doctorServ.save(this.doctor).subscribe(() => {
           this.closeDialog();
           this.doctorServ.reactVar.next('save');
@@ -94,7 +94,7 @@ export class DialogDoctorComponent implements OnInit {
       } else {
         this.doctor.id = this.formDoctor.value.id;
 
-        console.log(this.doctor);
+        // console.log(this.doctor);
         this.doctorServ.edit(this.doctor).subscribe(() => {
           this.closeDialog();
           this.doctorServ.reactVar.next('edit');

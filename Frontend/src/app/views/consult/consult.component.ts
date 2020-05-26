@@ -57,7 +57,7 @@ export class ConsultComponent implements OnInit {
 
   list(page: number, size: number) {
     this.consultServ.listPage(page, size).subscribe(dataConsultServ => {
-      console.log(dataConsultServ);
+      // console.log(dataConsultServ);
       this.totalElements = dataConsultServ.totalElements;
       this.mPaginator._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginator._intl.nextPageLabel = 'Página siguiente';
@@ -72,7 +72,7 @@ export class ConsultComponent implements OnInit {
   }
 
   changePage(e: any) {
-    console.log(e);
+    // console.log(e);
     this.list(e.pageIndex, e.pageSize);
   }
 
