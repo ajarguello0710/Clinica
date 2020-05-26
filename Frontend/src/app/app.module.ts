@@ -39,7 +39,7 @@ import { LoginComponent } from './views/login/login.component';
 
 import { JwtModule } from '@auth0/angular-jwt';
 import { Not401Component } from './views/not401/not401.component';
-import { InicioComponent } from './views/inicio/inicio.component';
+import { HomeComponent } from './views/home/home.component';
 
 
 export function tokenGetter() {
@@ -71,7 +71,7 @@ export function tokenGetter() {
     DialogPatientComponent,
     LoginComponent,
     Not401Component,
-    InicioComponent,
+    HomeComponent,
   ], entryComponents: [
     DialogConsultComponent,
     DialogConsultDetailComponent,

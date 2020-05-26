@@ -1,5 +1,5 @@
+import { HomeComponent } from './views/home/home.component';
 import { GuardService } from './service/guard.service';
-import { InicioComponent } from './views/inicio/inicio.component';
 import { Not401Component } from './views/not401/not401.component';
 import { LoginComponent } from './views/login/login.component';
 import { ConsultDetailSaveComponent } from './views/consult/consult-detail-save/consult-detail-save.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: '404', component: Not404Component },
   { path: '401', component: Not401Component },
   { path: 'error/:status/:message', component: ErrorComponent },
-  { path: 'inicio', component: InicioComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: '404', pathMatch: 'full' }

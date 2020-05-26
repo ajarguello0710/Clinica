@@ -29,10 +29,22 @@ export class GuardService implements CanActivate {
         if (url.includes('doctor') && rol === 'Administrador') {
           return true;
         }
+        if (url.includes('doctor') && rol === 'Medico') {
+          return true;
+        }
         if (url.includes('consult') && rol === 'Administrador') {
           return true;
         }
-        if (url.includes('patient') && rol === 'Administrador' || rol === 'Doctor') {
+        if (url.includes('consult') && rol === 'Asistente') {
+          return true;
+        }
+        if (url.includes('consult') && rol === 'Medico') {
+          return true;
+        }
+        if (url.includes('patient') && rol === 'Administrador') {
+          return true;
+        }
+        if (url.includes('patient') && rol === 'Paciente') {
           return true;
         }
         this.router.navigate([`/401`]);

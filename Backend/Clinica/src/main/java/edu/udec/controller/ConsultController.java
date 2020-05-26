@@ -26,7 +26,7 @@ import edu.udec.dto.FullConsult;
 import edu.udec.entity.Consult;
 import edu.udec.service.interfaces.IConsultService;
 
-@PreAuthorize("hasAuthority('Administrador')")
+@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
 @RestController
 @RequestMapping("/consult")
 public class ConsultController {

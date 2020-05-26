@@ -52,9 +52,9 @@
   <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #sidenav style="width: 200px;"
       class="mat-drawer mat-sidenav dark-sidebar pl-xs ng-tns-c56-0 ng-trigger ng-trigger-transform mat-drawer-side ng-star-inserted mat-drawer-opened">
-      <button mat-menu-item style="cursor: pointer;" routerLink="/#">
-        <mat-icon>search</mat-icon>
-        <span>Buscar</span>
+      <button mat-menu-item style="cursor: pointer;" routerLink="/home" (click)="sidenav.opened = false">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item style="width: 200px;" routerLink="/doctor" (click)="sidenav.opened = false">
@@ -68,7 +68,7 @@
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item style="width: 200px;" routerLink="/consult" (click)="sidenav.opened = false">
-        <mat-icon>ballot</mat-icon>
+        <mat-icon>local_hospital</mat-icon>
         <span>Consulta</span>
       </button>
       <!-- <mat-divider></mat-divider>

@@ -193,3 +193,23 @@ create table oauth_access_token (
 );
 
 
+Agregar Roles:
+1 Administrador
+2 Medico
+3 Asistente
+4 Paciente
+
+INSERT INTO "public"."role" VALUES (1, 'Administrador');
+INSERT INTO "public"."role" VALUES (3, 'Asistente');
+INSERT INTO "public"."role" VALUES (2, 'Medico');
+INSERT INTO "public"."role" VALUES (4, 'Paciente');
+
+
+
+Crear usuarios, en este caso su contraseña 123, revisa el Test para 
+generar una contraseña si cambia en spring
+
+INSERT INTO "public"."users" VALUES (1, '123456', 'Valdes', 'Juan', 'admin', '$2a$10$HmwgAc.NOGH82xVKdr3Rb.aMU5zbsUh2ktOF1qWr45GC2QNABV/Q6', 1);
+INSERT INTO "public"."users" VALUES (2, '123445', 'Arguello', 'Anggy', 'medico', '$2a$10$HmwgAc.NOGH82xVKdr3Rb.aMU5zbsUh2ktOF1qWr45GC2QNABV/Q6', 2);
+INSERT INTO "public"."users" VALUES (3, '123455', 'Roldan', 'Sebastian', 'asistente', '$2a$10$HmwgAc.NOGH82xVKdr3Rb.aMU5zbsUh2ktOF1qWr45GC2QNABV/Q6', 3);
+INSERT INTO "public"."users" VALUES (4, '123445', 'Enfermo', 'Muy', 'paciente', '$2a$10$HmwgAc.NOGH82xVKdr3Rb.aMU5zbsUh2ktOF1qWr45GC2QNABV/Q6', 4);
