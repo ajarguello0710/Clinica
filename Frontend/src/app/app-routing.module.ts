@@ -1,3 +1,4 @@
+import { LoginComponent } from './views/login/login.component';
 import { ConsultDetailSaveComponent } from './views/consult/consult-detail-save/consult-detail-save.component';
 import { ConsultDetailComponent } from './views/consult/consult-detail/consult-detail.component';
 import { ConsultComponent } from './views/consult/consult.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
   // {path: 'libro', component: LibroComponent},
   {path: '404', component: Not404Component},
   {path: 'error/:status/:message', component: ErrorComponent},
-  {path: '', redirectTo: 'doctor', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', redirectTo: '404', pathMatch: 'full'}
 ];
 

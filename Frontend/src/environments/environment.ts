@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   HOST: 'http://localhost:8080',
-  REINTENTOS: 2
+  REINTENTOS: 2,
+  TOKEN_AUTH_USERNAME: 'clinicappudec',
+  TOKEN_AUTH_PASSWORD: 'clinica2020',
+  TOKEN_NAME: 'access_token'
 };
 
 /*

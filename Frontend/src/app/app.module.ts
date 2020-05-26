@@ -34,6 +34,7 @@ import { DialogExamConsultEditComponent } from './views/consult/consult-detail-s
 import { DialogDetailConsultEditComponent } from './views/consult/consult-detail-save/dialog-detail-consult-edit/dialog-detail-consult-edit.component';
 import { DialogDoctorComponent } from './views/doctor/dialog-doctor/dialog-doctor.component';
 import { DialogPatientComponent } from './views/patient/dialog-patient/dialog-patient.component';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { DialogPatientComponent } from './views/patient/dialog-patient/dialog-pa
     DialogDetailConsultEditComponent,
     DialogDoctorComponent,
     DialogPatientComponent,
+    LoginComponent,
   ], entryComponents: [
     DialogConsultComponent,
     DialogConsultDetailComponent,
