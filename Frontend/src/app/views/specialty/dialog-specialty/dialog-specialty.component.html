@@ -1,0 +1,44 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+
+        <diV [hidden]="!isSaving">
+          <mat-card-title>Especialidad &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">New</span>
+          </mat-card-title>
+        </diV>
+        <diV [hidden]="isSaving">
+          <mat-card-title>Especialidad &nbsp;
+            <span class="bg-success text-white rounded font-12 pl-5 pr-5">Edit</span>
+          </mat-card-title>
+        </diV>
+
+        <form class="" [formGroup]="formSpecialty">
+
+          <div [hidden]="true">
+            <mat-form-field>
+              <input matInput placeholder="Id" formControlName="id">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Nombre" required minlength="3" maxlength="30" formControlName="name">
+          </mat-form-field>
+
+          <div class="button-row">
+            <button mat-fab color="primary" style="float: right;" [disabled]="formSpecialty.invalid" (click)="action()">
+              <mat-icon>save</mat-icon>
+            </button>
+
+            <button mat-fab color="warn" style="float: right;" (click)="closeDialog()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

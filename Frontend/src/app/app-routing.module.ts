@@ -1,3 +1,4 @@
+import { SpecialtyComponent } from './views/specialty/specialty.component';
 import { HomeComponent } from './views/home/home.component';
 import { GuardService } from './service/guard.service';
 import { Not401Component } from './views/not401/not401.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   },
   // {path: 'autor', component: AutorComponent},
   // {path: 'libro', component: LibroComponent},
+  { path: 'specialty', component: SpecialtyComponent },
   { path: '404', component: Not404Component },
   { path: '401', component: Not401Component },
   { path: 'error/:status/:message', component: ErrorComponent },

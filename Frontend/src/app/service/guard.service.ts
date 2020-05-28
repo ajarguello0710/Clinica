@@ -32,6 +32,15 @@ export class GuardService implements CanActivate {
         if (url.includes('doctor') && rol === 'Medico') {
           return true;
         }
+        if (url.includes('specialty') && rol === 'Administrador') {
+          return true;
+        }
+        if (url.includes('specialty') && rol === 'Medico') {
+          return true;
+        }
+        if (url.includes('specialty') && rol === 'Asistente') {
+          return true;
+        }
         if (url.includes('consult') && rol === 'Administrador') {
           return true;
         }
