@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.udec.dto.DoctorDto;
 import edu.udec.service.interfaces.IDoctorService;
 
-@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
+//@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {

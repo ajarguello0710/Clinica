@@ -90,11 +90,14 @@ public class ConsultServiceI implements IConsultService {
 		return convertEntity(repositoryConsult.save(consult));
 	}
 
+	@Transactional
 	@Override
 	public void delete(Integer id) {
 		if (!repositoryConsult.existsById(id)) {
 			throw new NotFoundModelException("Consulta no encontrada.");
 		} else {
+//			Exam exam = repositoryConsultExam.fin;
+			repositoryConsultExam.deleteId(id);
 			repositoryConsult.deleteById(id);
 		}
 	}

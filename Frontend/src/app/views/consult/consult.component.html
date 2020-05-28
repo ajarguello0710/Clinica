@@ -55,7 +55,7 @@
                 <button mat-button (click)="openDialogEdit(row)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-button color="warn">
+                <button mat-button matTooltip="Esta acción eliminara Examenes y Consultas" matTooltipPosition="before" color="warn" (click)="delete(row.id)">
                   <mat-icon>delete_forever</mat-icon>
                 </button>
               </mat-cell>

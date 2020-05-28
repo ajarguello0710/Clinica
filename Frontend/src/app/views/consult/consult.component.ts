@@ -90,4 +90,10 @@ export class ConsultComponent implements OnInit {
     });
   }
 
+  delete(id: number) {
+    this.consultServ.delete(id).subscribe(() => {
+      this.consultServ.reactVar.next('delete');
+    });
+  }
+
 }

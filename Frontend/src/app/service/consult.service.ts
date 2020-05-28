@@ -38,4 +38,8 @@ export class ConsultService {
   save(consultSave: ConsultSave) {
     return this.http.post(`${this.url}/saveFull`, consultSave);
   }
+
+  delete(id: number) {
+    return this.http.delete(`${this.url}/delete/${id}`);
+  }
 }

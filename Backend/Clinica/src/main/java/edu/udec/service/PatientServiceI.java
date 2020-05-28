@@ -72,6 +72,12 @@ public class PatientServiceI implements IPatientService {
 		if (objectEdit.getMail() != patient.getMail()) {
 			patient.setMail(objectEdit.getMail());
 		}
+		if (objectEdit.getState() != patient.getState()) {
+			patient.setState(objectEdit.getState());
+		}
+		if (objectEdit.getAddress() != patient.getAddress()) {
+			patient.setAddress(objectEdit.getAddress());
+		}
 		return convertEntity(repository.save(patient));
 	}
 

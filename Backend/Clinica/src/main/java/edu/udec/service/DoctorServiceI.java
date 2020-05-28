@@ -67,6 +67,12 @@ public class DoctorServiceI implements IDoctorService{
 		if (objectEdit.getDateBirth() != doctor.getDateBirth()) {
 			doctor.setDateBirth(objectEdit.getDateBirth());
 		}
+		if (objectEdit.getState() != doctor.getState()) {
+			doctor.setState(objectEdit.getState());
+		}
+		if (objectEdit.getAddress() != doctor.getAddress()) {
+			doctor.setAddress(objectEdit.getAddress());
+		}
 		return convertEntity(repository.save(doctor));
 	}
 
@@ -124,14 +130,12 @@ public class DoctorServiceI implements IDoctorService{
 
 	@Override
 	public Page<DoctorDto> listPagingated(Pageable pageable) {
-		
+//		pageable.getSortOr(Sort.by("id").descending());
 		List<DoctorDto> consultPage = covertListEntity(repository.findAll());
 		Page<DoctorDto> page = new PageImpl<DoctorDto>(consultPage);
-		
 		for (DoctorDto doctorDto : page.getContent()) {
 			doctorDto.setConsults(new ArrayList<>());
 		}
-		
 		return page;
 	}
 }

@@ -24,7 +24,7 @@ import edu.udec.dto.PatientDto;
 import edu.udec.entity.Patient;
 import edu.udec.service.interfaces.IPatientService;
 
-@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Paciente') or hasAuthority('Asistente') or hasAuthority('Medico')")
+//@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Paciente') or hasAuthority('Asistente') or hasAuthority('Medico')")
 @RestController
 @RequestMapping("/patient")
 public class PatientController {

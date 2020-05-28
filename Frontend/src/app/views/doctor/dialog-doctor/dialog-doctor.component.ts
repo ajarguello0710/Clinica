@@ -18,6 +18,7 @@ export class DialogDoctorComponent implements OnInit {
   address: Address;
   isSaving = true;
   formDoctor: FormGroup;
+  valid = false;
 
   dateSelected: Date;
   dateNow: Date = new Date();
@@ -42,12 +43,12 @@ export class DialogDoctorComponent implements OnInit {
   save() {
     this.formDoctor = new FormGroup({
       id: new FormControl(''),
+      idAddress: new FormControl(''),
       name: new FormControl(''),
       lastName: new FormControl(''),
       birthDate: new FormControl(''),
       address: new FormControl(''),
       neighborhood: new FormControl(''),
-      mail: new FormControl(''),
       state: new FormControl('')
     });
   }
@@ -56,21 +57,33 @@ export class DialogDoctorComponent implements OnInit {
     console.log(this.dataDoctor);
     this.formDoctor = new FormGroup({
       id: new FormControl(this.dataDoctor.id),
+      idAddress: new FormControl(this.dataDoctor.address.id),
       name: new FormControl(this.dataDoctor.name),
       lastName: new FormControl(this.dataDoctor.lastName),
       address: new FormControl(this.dataDoctor.address.address),
       neighborhood: new FormControl(this.dataDoctor.address.neighborhood),
       birthDate: new FormControl(this.dataDoctor.dateBirth),
-      mail: new FormControl(this.dataDoctor.mail),
       state: new FormControl(this.dataDoctor.state)
     });
   }
 
   action() {
     this.dateSelected = this.formDoctor.value.birthDate;
-    if (this.dateSelected.getDate() > this.dateNow.getDate()) {
-      this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+    if (this.isSaving) {
+      if (this.dateSelected.getDate() > this.dateNow.getDate()) {
+        this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+      } else {
+        this.valid = true;
+      }
     } else {
+      if (this.dateSelected > this.dateNow) {
+        this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+      } else {
+        this.valid = true;
+      }
+    }
+
+    if (this.valid === true) {
       this.doctor = new Doctor();
       this.address = new Address();
       this.doctor.name = this.formDoctor.value.name;
@@ -78,21 +91,23 @@ export class DialogDoctorComponent implements OnInit {
       this.doctor.dateBirth = this.formDoctor.value.birthDate;
       this.address.address = this.formDoctor.value.address;
       this.address.neighborhood = this.formDoctor.value.neighborhood;
-      this.doctor.mail = this.formDoctor.value.mail;
       this.doctor.state = this.formDoctor.value.state;
 
-      this.doctor.address = this.address;
+
       // console.log(this.doctor);
       // console.log(this.address);
       if (this.isSaving) {
 
         // console.log(this.doctor);
+        this.doctor.address = this.address;
         this.doctorServ.save(this.doctor).subscribe(() => {
           this.closeDialog();
           this.doctorServ.reactVar.next('save');
         });
       } else {
         this.doctor.id = this.formDoctor.value.id;
+        this.address.id = this.formDoctor.value.idAddress;
+        this.doctor.address = this.address;
 
         // console.log(this.doctor);
         this.doctorServ.edit(this.doctor).subscribe(() => {
@@ -101,6 +116,7 @@ export class DialogDoctorComponent implements OnInit {
         });
       }
     }
+
   }
 
   closeDialog() {

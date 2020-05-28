@@ -15,7 +15,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class PatientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'lastName', 'dateBirth', 'state', 'acciones'];
+  displayedColumns: string[] = ['id', 'name', 'lastName', 'dateBirth', 'state', 'address', 'acciones'];
   dataSource = new MatTableDataSource<Patient>();
 
   @ViewChild(MatSort, { static: true }) mSort: MatSort;
@@ -49,7 +49,7 @@ export class PatientComponent implements OnInit {
 
   listPatient(page: number, size: number) {
     this.patientServ.listPaginated(page, size).subscribe(data => {
-      // console.log(data);
+      console.log(data);
       this.totalElements = data.totalElements;
       this.mPaginator._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginator._intl.nextPageLabel = 'Página siguiente';

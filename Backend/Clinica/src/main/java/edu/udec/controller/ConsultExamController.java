@@ -19,7 +19,7 @@ import edu.udec.dto.ConsultExamDto;
 import edu.udec.dto.ConsultExamReportDto;
 import edu.udec.service.interfaces.IConsultExamService;
 
-@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
+//@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
 @RestController
 @RequestMapping("/consultExam")
 public class ConsultExamController {

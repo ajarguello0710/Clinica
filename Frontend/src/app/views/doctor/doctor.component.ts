@@ -48,7 +48,7 @@ export class DoctorComponent implements OnInit {
 
   listDoctor(page: number, size: number) {
     this.doctorServ.listPage(page, size).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.totalElements = data.totalElements;
       this.mPaginator._intl.itemsPerPageLabel = 'Registros por página';
       this.mPaginator._intl.nextPageLabel = 'Página siguiente';
@@ -62,7 +62,7 @@ export class DoctorComponent implements OnInit {
   }
 
   changePage(e: any) {
-    console.log(e);
+    // console.log(e);
     this.listDoctor(e.pageIndex, e.pageSize);
   }
 

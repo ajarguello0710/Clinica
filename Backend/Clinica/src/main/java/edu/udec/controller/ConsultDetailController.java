@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.udec.dto.ConsultDetailDto;
 import edu.udec.service.interfaces.IConsultDetailService;
 
-@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
+//@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
 @RestController
 @RequestMapping("/consultDetail")
 public class ConsultDetailController {

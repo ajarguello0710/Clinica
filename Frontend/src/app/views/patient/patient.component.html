@@ -35,22 +35,33 @@
                 <span class="bg-enable text-white rounded font-12 pl-5 pr-5">&nbsp;Habilitado&nbsp;</span>
               </div>
               <ng-template #elseBlock>
-                <span class="bg-danger text-white rounded font-12 pl-5 pr-5">Deshabilitado</span>
+
               </ng-template>
             </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class=""
+                matTooltip="Barrio: {{ element.address.neighborhood }}"
+                matTooltipPosition="above">{{ element.address.address }}</span>
+            </mat-cell>
+            <!-- <button mat-button matTooltip="Ver Especialidad" matTooltipPosition="before">
+              <mat-icon>badge</mat-icon>
+            </button> -->
           </ng-container>
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-button matTooltip="Ver Dirección" matTooltipPosition="before">
+              <!-- <button mat-button matTooltip="{{ element.dateBirth }}" matTooltipPosition="before">
                 <mat-icon>add_location</mat-icon>
-              </button>
+              </button> -->
               <button mat-button (click)="openDiaogPatient(row)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-button color="warn">
+              <!-- <button mat-button color="warn">
                 <mat-icon>delete_forever</mat-icon>
-              </button>
+              </button> -->
             </mat-cell>
           </ng-container>
 
@@ -58,7 +69,8 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalElements" (page)="changePage($event)"></mat-paginator>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalElements"
+          (page)="changePage($event)"></mat-paginator>
 
         <button mat-fab color="primary" style="float: right;" (click)="openDiaogPatient()">
           <mat-icon>add</mat-icon>

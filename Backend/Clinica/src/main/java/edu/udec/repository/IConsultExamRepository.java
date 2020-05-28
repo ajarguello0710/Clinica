@@ -28,4 +28,9 @@ public interface IConsultExamRepository extends JpaRepository<ConsultExam, Integ
 	@Query("SELECT new edu.udec.dto.ExamReportDto(ce.exam, ce.information) FROM ConsultExam ce WHERE ce.consult.id = :idConsult")
 	public List<ExamReportDto> getId(@Param("idConsult") Integer idConsult);
 	
+//	@Transactional
+	@Modifying
+	@Query("DELETE FROM ConsultExam ce WHERE ce.consult.id = :idConsult")
+	public void deleteId(@Param("idConsult") Integer idConsult);
+	
 }

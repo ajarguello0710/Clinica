@@ -18,6 +18,7 @@ export class DialogPatientComponent implements OnInit {
   address: Address;
   isSaving = true;
   formPatient: FormGroup;
+  valid = false;
 
   dateSelected: Date;
   dateNow: Date = new Date();
@@ -42,6 +43,7 @@ export class DialogPatientComponent implements OnInit {
   save() {
     this.formPatient = new FormGroup({
       id: new FormControl(''),
+      idAddress: new FormControl(''),
       name: new FormControl(''),
       lastName: new FormControl(''),
       address: new FormControl(''),
@@ -56,6 +58,7 @@ export class DialogPatientComponent implements OnInit {
     // console.log(this.dataPatient);
     this.formPatient = new FormGroup({
       id: new FormControl(this.dataPatient.id),
+      idAddress: new FormControl(this.dataPatient.address.id),
       name: new FormControl(this.dataPatient.name),
       lastName: new FormControl(this.dataPatient.lastName),
       dateBirth: new FormControl(this.dataPatient.dateBirth),
@@ -68,9 +71,21 @@ export class DialogPatientComponent implements OnInit {
 
   action() {
     this.dateSelected = this.formPatient.value.dateBirth;
-    if (this.dateSelected.getDate() > this.dateNow.getDate()) {
-      this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+    if (this.isSaving) {
+      if (this.dateSelected.getDate() > this.dateNow.getDate()) {
+        this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+      } else {
+        this.valid = true;
+      }
     } else {
+      if (this.dateSelected > this.dateNow) {
+        this.showMessage('Por favor, seleccionar una fecha válida', 'Error');
+      } else {
+        this.valid = true;
+      }
+    }
+
+    if (this.valid === true) {
       this.patient = new Patient();
       this.address = new Address();
       this.patient.name = this.formPatient.value.name;
@@ -81,17 +96,17 @@ export class DialogPatientComponent implements OnInit {
       this.address.address = this.formPatient.value.address;
       this.address.neighborhood = this.formPatient.value.neighborhood;
 
-      this.patient.address = this.address;
-
       if (this.isSaving) {
         // console.log(this.patient);
+        this.patient.address = this.address;
         this.patientServ.save(this.patient).subscribe(() => {
           this.closeDialog();
           this.patientServ.reactVar.next('save');
         });
       } else {
         this.patient.id = this.formPatient.value.id;
-
+        this.address.id = this.formPatient.value.idAddress;
+        this.patient.address = this.address;
         // console.log(this.patient);
         this.patientServ.edit(this.patient).subscribe(() => {
           this.closeDialog();

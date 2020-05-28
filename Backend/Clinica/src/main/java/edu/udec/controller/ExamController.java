@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.udec.dto.ExamDto;
 import edu.udec.service.interfaces.IExamService;
 
-@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
+//@PreAuthorize("hasAuthority('Administrador') or hasAuthority('Medico') or hasAuthority('Asistente')")
 @RestController
 @RequestMapping("/exam")
 public class ExamController {
