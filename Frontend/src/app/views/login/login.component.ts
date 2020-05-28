@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
     this.loginServ.login(this.formLogin.value.user, this.formLogin.value.password).subscribe(data => {
       // console.log(data);
       sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
-      this.router.navigate([`/home`]);
+      // this.router.navigate([`/home`]);
+      window.location.assign('/home');
       // this.loginServ.reactToolbar.next(false);
     });
   }

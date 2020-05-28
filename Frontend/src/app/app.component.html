@@ -1,5 +1,5 @@
 <div class="example-container">
-  <!-- <div [hidden]="isValid"> -->
+  <div [hidden]="isValid">
     <mat-toolbar color="primary" class="topbar telative">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
@@ -47,7 +47,7 @@
       </mat-menu>
 
     </mat-toolbar>
-  <!-- </div> -->
+  </div>
 
   <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #sidenav style="width: 200px;"

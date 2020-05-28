@@ -32,7 +32,8 @@ export class LoginService {
 
     this.http.get(`${environment.HOST}/logout/cancel/${token}`).subscribe(() => {
       sessionStorage.clear();
-      this.router.navigate([`/login`]);
+      // this.router.navigate([`/login`]);
+      window.location.assign('/login');
     });
   }
 

@@ -10,19 +10,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Clinica';
 
-  // token = sessionStorage.getItem(environment.TOKEN_NAME);
-  // isValid = false;
+  token = sessionStorage.getItem(environment.TOKEN_NAME);
+  isValid = false;
 
-  // // tslint:disable-next-line: use-lifecycle-interface
-  // ngOnInit() {
-  //   // tslint:disable-next-line: triple-equals
-  //   if (this.token === null) {
-  //     this.isValid = true;
-  //     console.log('entro');
-  //   } else {
-  //     console.log('no entro');
-  //   }
-  // }
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngOnInit() {
+    // tslint:disable-next-line: triple-equals
+    if (this.token === null) {
+      this.isValid = true;
+      // console.log('entro');
+    } else {
+      // console.log('no entro');
+    }
+  }
 
   constructor(private loginServ: LoginService) {}
 
