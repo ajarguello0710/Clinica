@@ -55,9 +55,18 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field>
+          <!-- <mat-form-field>
             <input matInput placeholder="Estado" required minlength="3" maxlength="30"
               formControlName="state">
+          </mat-form-field> -->
+
+          <mat-form-field>
+            <mat-label>Estado:</mat-label>
+            <mat-select required placeholder="Seleccione" formControlName="state">
+              <mat-option *ngFor="let state of selectState" [value]="state.value">
+                {{ state.label }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <div class="button-row">

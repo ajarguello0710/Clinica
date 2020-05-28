@@ -23,6 +23,11 @@ export class DialogDoctorComponent implements OnInit {
   dateSelected: Date;
   dateNow: Date = new Date();
 
+  selectState = [
+    { value: 'true', label: 'Habilitar'},
+    { value: 'false', label: 'Deshabilitar'}
+  ];
+
   constructor(
     private dialogRef: MatDialogRef<DialogDoctorComponent>,
     private doctorServ: DoctorService,
